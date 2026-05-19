@@ -19,7 +19,7 @@ const links = [
   { href: "/admin", label: "Dashboard", icon: LayoutDashboard },
   { href: "/admin/products", label: "Products", icon: Package },
   { href: "/admin/orders", label: "Orders", icon: ShoppingBag },
-  { href: "/admin/dealers", label: "Dealers", icon: Store },
+  { href: "/admin/dealers", label: "Business Partners", icon: Store },
   { href: "/admin/users", label: "Users", icon: Users },
   { href: "/admin/contact", label: "Contact", icon: Mail },
   { href: "/admin/settings", label: "Settings", icon: Settings },
@@ -36,7 +36,7 @@ export default function Sidebar() {
   return (
     <aside className="w-64 bg-secondary text-white min-h-screen flex flex-col shrink-0">
       <div className="p-6 border-b border-white/10">
-        <h1 className="text-xl font-bold">Flooo Admin</h1>
+        <h1 className="text-xl font-bold">LSP Enterprises Admin</h1>
       </div>
       <nav className="flex-1 p-4 space-y-1">
         {links.map(({ href, label, icon: Icon }) => (

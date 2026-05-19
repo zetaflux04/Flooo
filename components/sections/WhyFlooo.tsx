@@ -13,7 +13,7 @@ const features = [
   },
   {
     icon: Droplets,
-    title: "Good for a Health Life",
+    title: "Good for a Healthy Life",
     desc: "PH-balanced, mineral enriched water for your family's wellbeing.",
   },
   {

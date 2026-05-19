@@ -53,7 +53,7 @@ export default function AdminLoginPage() {
       <form onSubmit={handleSubmit} method="post" action="#" className="card w-full max-w-md">
         <div className="text-center mb-8">
           <Droplets className="w-10 h-10 text-primary mx-auto mb-2" />
-          <h1 className="text-xl font-bold text-secondary">Flooo Admin</h1>
+          <h1 className="text-xl font-bold text-secondary">LSP Enterprises Admin</h1>
           <p className="text-muted text-sm mt-1">Sign in to manage orders & products</p>
         </div>
         <label className="text-sm font-medium text-secondary block mb-2">Email</label>

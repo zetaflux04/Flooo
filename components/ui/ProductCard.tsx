@@ -49,7 +49,7 @@ export default function ProductCard({ product }: ProductCardProps) {
           variant={isApparel ? "magenta" : "green"}
           className="absolute top-3 left-3 z-10"
         >
-          {isApparel ? "Apparel" : "BIS Certified"}
+          {isApparel ? "Apparel" : "Bottle"}
         </Badge>
         <Image
           src={product.image || "/1.png"}

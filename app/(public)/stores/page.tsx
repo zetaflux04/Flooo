@@ -40,7 +40,7 @@ export default function StoresPage() {
   return (
     <div className="py-12 bg-[#f0f4f8] min-h-screen">
       <div className="page-container">
-        <h1 className="text-4xl font-bold text-secondary mb-2">Our Stores</h1>
+        <h1 className="text-4xl font-bold text-secondary mb-2">Business Partners</h1>
         <p className="text-muted mb-8">Find your nearest LSP Enterprises dealer — updated live from database</p>
         <div className="flex flex-col sm:flex-row gap-4 mb-8">
           <input

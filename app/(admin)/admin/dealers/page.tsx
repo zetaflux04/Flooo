@@ -272,10 +272,10 @@ export default function AdminDealersPage() {
 
   return (
     <>
-      <AdminHeader title="Dealers" />
+      <AdminHeader title="Business Partners" />
       <div className="flex flex-wrap gap-3 mb-6">
         <button type="button" onClick={openAdd} className="btn-primary">
-          + Add Dealer
+          + Add Business Partner
         </button>
         <a href="/api/qr" download="flooo-qr.png" className="btn-secondary flex items-center gap-2">
           <Download className="w-4 h-4" /> Download QR Code
