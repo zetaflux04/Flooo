@@ -183,6 +183,6 @@ export default function CheckoutPage() {
 
 function LinkLogo() {
   return (
-    <span className="text-3xl font-bold text-primary tracking-tight">Flooo</span>
+    <span className="text-3xl font-bold text-primary tracking-tight">LSP Enterprises</span>
   );
 }

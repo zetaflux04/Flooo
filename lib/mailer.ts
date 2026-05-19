@@ -26,7 +26,7 @@ export async function sendContactEmail(data: {
   }
 
   await transporter.sendMail({
-    from: `"Flooo Website" <${to}>`,
+    from: `"LSP Enterprises Website" <${to}>`,
     to,
     subject: `New Enquiry from ${data.name}`,
     html: `

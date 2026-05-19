@@ -11,7 +11,7 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: "Flooo — Pure Water. Healthy Life.",
+  title: "LSP Enterprises — Pure Water. Healthy Life.",
   description: "BIS-certified added mineral water by LSP Enterprises. 250ml, 500ml & 1L packs delivered to your door.",
 };
 

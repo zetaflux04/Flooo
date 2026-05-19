@@ -2,11 +2,11 @@ export default function AboutPage() {
   return (
     <div className="py-16 bg-background min-h-screen">
       <div className="page-container">
-        <h1 className="text-4xl font-bold text-secondary mb-6">About Flooo</h1>
+        <h1 className="text-4xl font-bold text-secondary mb-6">About LSP Enterprises</h1>
         <div className="card space-y-4 text-muted leading-relaxed">
           <p>
-            <strong className="text-secondary">Flooo</strong> is a BIS-certified added mineral water brand
-            by <strong className="text-secondary">LSP Enterprises</strong>. We deliver pure, healthy hydration
+            <strong className="text-secondary">LSP Enterprises</strong> is a BIS-certified added mineral water brand.
+            We deliver pure, healthy hydration
             across North India through our network of manufacturing units and retail partners.
           </p>
           <p>

@@ -19,8 +19,8 @@ export default function PremiumDeliveryCta() {
           <div className="relative flex justify-center order-2 lg:order-1">
             <div className="relative w-full max-w-md aspect-[4/3] animate-float">
               <Image
-                src="/bottle_group.png"
-                alt="Flooo water delivery"
+                src="/bottle_group_1.png"
+                alt="LSP Enterprises water delivery"
                 fill
                 className="object-contain drop-shadow-2xl"
               />

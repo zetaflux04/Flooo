@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { Droplets, MapPin, Phone, Mail, Facebook, Twitter, Linkedin } from "lucide-react";
+import { MapPin, Phone, Mail, Facebook, Twitter, Linkedin } from "lucide-react";
+import BrandLogo from "@/components/ui/BrandLogo";
 import PageContainer from "./PageContainer";
 import FooterTopWave from "./FooterTopWave";
 import FooterSubscribe from "./FooterSubscribe";
@@ -52,10 +53,12 @@ export default function Footer() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 py-12">
             <div>
-              <div className="flex items-center gap-2 mb-4">
-                <Droplets className="w-8 h-8 text-primary" />
-                <span className="text-2xl font-bold">Flooo</span>
-              </div>
+              <BrandLogo
+                size="lg"
+                textClassName="text-2xl text-white"
+                className="mb-4"
+                asLink={false}
+              />
               <p className="text-white/70 text-sm leading-relaxed mb-6">
                 BIS-certified added mineral water by LSP Enterprises. Pure hydration delivered across North India.
               </p>
@@ -121,7 +124,7 @@ export default function Footer() {
           <PageContainer className="py-5">
             <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-white/60">
               <p className="text-center md:text-left">
-                Flooo ? {new Date().getFullYear()} All Rights Reserved
+                LSP Enterprises © {new Date().getFullYear()} All Rights Reserved
               </p>
               <div className="flex items-center gap-3">
                 {socialLinks.map(({ href, label, icon: Icon }) => (

@@ -26,7 +26,7 @@ export default function CartPage() {
       <div className="page-container py-20 text-center">
         <ShoppingBag className="w-20 h-20 text-gray-300 mx-auto mb-6" />
         <h1 className="text-2xl font-bold text-secondary mb-2">Your cart is empty</h1>
-        <p className="text-muted mb-8">Add some Flooo water to get started!</p>
+        <p className="text-muted mb-8">Add some LSP Enterprises water to get started!</p>
         <Link href="/products" className="btn-primary inline-block">Shop Now</Link>
       </div>
     );

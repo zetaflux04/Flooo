@@ -50,7 +50,7 @@ export default function AdminContactPage() {
                 <td className="p-3">{formatDate(s.createdAt)}</td>
                 <td className="p-3">
                   <a
-                    href={`mailto:${s.email || "lspenterpriseslko@gmail.com"}?subject=Re: Your Flooo enquiry`}
+                    href={`mailto:${s.email || "lspenterpriseslko@gmail.com"}?subject=Re: Your LSP Enterprises enquiry`}
                     className="text-primary hover:underline"
                   >
                     Reply

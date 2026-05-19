@@ -50,7 +50,7 @@ export default function OrderSuccessPage() {
           <CheckCircle className="w-12 h-12 text-green-500" />
         </div>
         <h1 className="text-3xl font-bold text-secondary mb-2">Order Placed Successfully!</h1>
-        <p className="text-muted mb-8">Thank you for choosing Flooo. We will call you to confirm your order.</p>
+        <p className="text-muted mb-8">Thank you for choosing LSP Enterprises. We will call you to confirm your order.</p>
 
         <div className="grid sm:grid-cols-2 gap-6 text-left mb-8">
           <div>

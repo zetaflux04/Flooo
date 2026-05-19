@@ -5,7 +5,7 @@ import { ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const faqs = [
-  { q: "Is Flooo water BIS certified?", a: "Yes, Flooo is fully BIS certified added mineral water meeting all Indian quality standards." },
+  { q: "Is LSP Enterprises water BIS certified?", a: "Yes, LSP Enterprises is fully BIS certified added mineral water meeting all Indian quality standards." },
   { q: "What sizes are available?", a: "We offer 250ml, 500ml, and 1 Litre packs in boxes of 24 or 12." },
   { q: "How is the water purified?", a: "Multi-stage RO + UV + UF purification with mineral enrichment for optimal taste." },
   { q: "Can I order in bulk?", a: "Yes! Contact your nearest wholesale unit for bulk pricing and delivery." },
@@ -20,7 +20,7 @@ export default function FaqSection() {
     <section id="faq" className="py-20 bg-light-blue">
       <div className="page-container">
         <h2 className="section-title">Frequently Asked Questions</h2>
-        <p className="section-subtitle mb-10">Everything you need to know about Flooo</p>
+        <p className="section-subtitle mb-10">Everything you need to know about LSP Enterprises</p>
         <div className="max-w-3xl mx-auto space-y-3">
           {faqs.map((f, i) => (
             <div key={i} className="card !p-0 overflow-hidden">

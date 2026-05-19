@@ -3,7 +3,8 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
-import { ShoppingCart, User, Menu, X, Droplets } from "lucide-react";
+import { ShoppingCart, User, Menu, X } from "lucide-react";
+import BrandLogo from "@/components/ui/BrandLogo";
 import { useCartStore } from "@/store/cartStore";
 import { useAuthStore } from "@/store/authStore";
 import ProfileMenu from "@/components/ui/ProfileMenu";
@@ -64,10 +65,7 @@ export default function Navbar() {
     <>
       <header className="sticky top-0 z-50 bg-white shadow-sm">
         <nav className="page-container h-16 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2 shrink-0">
-            <Droplets className="w-7 h-7 text-primary" />
-            <span className="text-2xl font-bold text-primary">Flooo</span>
-          </Link>
+          <BrandLogo size="md" textClassName="text-2xl" />
 
           <ul className="hidden lg:flex items-center gap-6">
             {links.map((l) => (
@@ -118,7 +116,7 @@ export default function Navbar() {
           <div className="absolute inset-0 bg-black/40" onClick={() => setOpen(false)} />
           <div className="absolute right-0 top-0 h-full w-72 bg-white shadow-xl p-6 flex flex-col">
             <div className="flex justify-between items-center mb-8">
-              <span className="text-xl font-bold text-primary">Flooo</span>
+              <BrandLogo size="sm" textClassName="text-xl" asLink={false} />
               <button type="button" onClick={() => setOpen(false)}>
                 <X className="w-6 h-6" />
               </button>

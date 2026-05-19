@@ -168,7 +168,7 @@ export default function ProductDetailPage() {
                   ["Size", product.size],
                   isApparel ? null : ["Pack Size", `${product.packQty} bottles`],
                   isApparel ? null : ["Purification", "RO + UV + UF"],
-                  ["Brand", "Flooo by LSP Enterprises"],
+                  ["Brand", "LSP Enterprises"],
                 ]
                   .filter(Boolean)
                   .map((row) => {
@@ -186,8 +186,8 @@ export default function ProductDetailPage() {
           {tab === "certifications" && (
             <p className="text-muted">
               {isApparel
-                ? "Premium quality cotton blend. Official Flooo branded merchandise."
-                : "Flooo is BIS certified added mineral water manufactured under strict quality controls at LSP Enterprises facilities. All products meet IS 14543 standards."}
+                ? "Premium quality cotton blend. Official LSP Enterprises branded merchandise."
+                : "LSP Enterprises is BIS certified added mineral water manufactured under strict quality controls. All products meet IS 14543 standards."}
             </p>
           )}
         </div>

@@ -30,9 +30,10 @@ export default function ProductsSection() {
   return (
     <section id="products" className="py-20 bg-white relative">
       <div className="page-container">
-        <h2 className="section-title">We Deliver Best Quality Bottle Packs</h2>
-        <p className="section-subtitle mb-8">
-          BIS certified mineral water and Flooo branded apparel
+        <h2 className="section-title">We Deliver Best Quality Packaging Drinking Water Bottles</h2>
+        <p className="section-subtitle mb-4 mt-4">
+          <span>☆ LSP Enterprises</span>
+          <span className="ml-4">☆ LPS Flowers</span>
         </p>
         <div className="flex flex-wrap justify-center gap-2 mb-12">
           {tabs.map((t) => (
@@ -55,8 +56,8 @@ export default function ProductsSection() {
           {loading
             ? Array.from({ length: 6 }).map((_, i) => <ProductCardSkeleton key={i} />)
             : products.map((p) => (
-                <ProductCard key={p._id} product={p} />
-              ))}
+              <ProductCard key={p._id} product={p} />
+            ))}
         </div>
         <div className="text-center mt-10">
           <Link href="/products" className="btn-primary inline-block">

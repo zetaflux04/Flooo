@@ -104,7 +104,7 @@ export default function ContactForm() {
               <p className="text-sm font-medium text-secondary mb-3">Find us on the map</p>
               <div className="rounded-card overflow-hidden border border-gray-200 shadow-card aspect-[4/3] min-h-[240px]">
                 <iframe
-                  title={`Flooo office — ${COMPANY_ADDRESS}`}
+                  title={`LSP Enterprises office — ${COMPANY_ADDRESS}`}
                   src={COMPANY_MAP_EMBED_URL}
                   className="w-full h-full min-h-[240px] border-0"
                   loading="lazy"

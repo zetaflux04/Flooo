@@ -3,7 +3,7 @@
 import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
-import { Droplets } from "lucide-react";
+import BrandLogo from "@/components/ui/BrandLogo";
 import toast from "react-hot-toast";
 import { useAuthStore } from "@/store/authStore";
 import WaterBackground from "@/components/ui/WaterBackground";
@@ -87,9 +87,8 @@ function LoginForm() {
   return (
     <WaterBackground variant="section" className="min-h-screen flex items-center justify-center p-4">
       <div className="card w-full max-w-md shadow-xl">
-        <div className="text-center mb-8">
-          <Droplets className="w-12 h-12 text-primary mx-auto mb-3" />
-          <h1 className="text-2xl font-bold text-primary">Flooo</h1>
+        <div className="flex flex-col items-center mb-8">
+          <BrandLogo size="lg" className="mb-3" />
           <p className="text-muted text-sm mt-1">Login to your account</p>
         </div>
 

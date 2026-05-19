@@ -3,17 +3,17 @@ import { Droplets, Award, Truck, Factory } from "lucide-react";
 const features = [
   {
     icon: Droplets,
-    title: "Always Fresh Water",
+    title: "Always Feel Fresh",
     desc: "RO + UV + UF technology for crystal-clear purity in every drop.",
   },
   {
     icon: Award,
-    title: "Pure and Clean",
-    desc: "BIS certified added mineral water meeting all Indian quality standards.",
+    title: "Premium in Quality",
+    desc: "Packaging water bottle, meeting all Indian quality standards.",
   },
   {
     icon: Droplets,
-    title: "Safe for Health",
+    title: "Good for a Health Life",
     desc: "PH-balanced, mineral enriched water for your family's wellbeing.",
   },
   {
@@ -27,7 +27,7 @@ export default function WhyFlooo() {
   return (
     <section className="py-20 bg-white">
       <div className="page-container">
-        <h2 className="section-title">Why Choose Flooo</h2>
+        <h2 className="section-title">Why Choose LSP Enterprises</h2>
         <p className="section-subtitle mb-12">Premium hydration backed by science and trust</p>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {features.map(({ icon: Icon, title, desc }) => (

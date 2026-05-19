@@ -66,7 +66,7 @@ export default function ProductCard({ product }: ProductCardProps) {
       <p className="text-muted text-sm mb-1 line-clamp-2">
         {product.description ||
           (isApparel
-            ? "Premium Flooo branded apparel"
+            ? "Premium LSP Enterprises branded apparel"
             : `Premium mineral water — ${product.size}`)}
       </p>
       <p className="text-xs font-semibold text-secondary uppercase mb-4">
