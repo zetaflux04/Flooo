@@ -6,7 +6,7 @@ import WaveDivider from "@/components/ui/WaveDivider";
 export default function Hero() {
   return (
     <WaterBackground variant="hero" className="text-white min-h-[88vh] flex items-center">
-      <div className="page-container py-20">
+      <div className="page-container py-10">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <div>
             <span className="inline-block bg-accent/20 border border-accent/40 text-accent font-semibold px-4 py-1.5 rounded-full mb-6 water-shimmer">
