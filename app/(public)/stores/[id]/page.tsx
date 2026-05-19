@@ -12,7 +12,7 @@ import {
   ArrowLeft,
 } from "lucide-react";
 import { DealerData } from "@/components/ui/DealerCard";
-import { formatPrice } from "@/lib/utils";
+import { formatPlantLabel, formatPrice } from "@/lib/utils";
 
 interface ProductRow {
   _id: string;
@@ -100,7 +100,9 @@ export default function StoreDetailPage() {
                 {dealer.code}
               </span>
               <h1 className="text-3xl md:text-4xl font-bold text-white mb-1">{dealer.name}</h1>
-              <p className="text-white/80">{dealer.type} Store</p>
+              {dealer.plantNumber != null && dealer.plantNumber >= 1 && (
+                <p className="text-white/80">{formatPlantLabel(dealer.plantNumber)}</p>
+              )}
             </div>
             <span className="bg-white text-green-600 font-bold text-sm px-4 py-1.5 rounded-full shrink-0">
               OPEN

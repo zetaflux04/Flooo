@@ -20,8 +20,8 @@ export default function Hero() {
               <span>☆ LSP Flooo </span>
               <span className="ml-2">☆ LPS Flowers</span>
             </p>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
-              Premium Quality Water You Can Trust Every Day
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight mb-6">
+              Premium Quality Pack Drinking Water You Can Trust Every Day / Every Sip
             </h1>
             <p className="text-lg text-white/85 mb-8 max-w-lg mx-auto lg:mx-0">
               BIS Certified · RO+UV+UF Purified · 100ml, 250ml, 500ml &amp; 1 Litre packs delivered to your door.

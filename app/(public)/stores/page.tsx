@@ -3,15 +3,13 @@
 import { useEffect, useState } from "react";
 import DealerCard, { DealerData } from "@/components/ui/DealerCard";
 import { Skeleton } from "@/components/ui/Skeleton";
-import { cn } from "@/lib/utils";
-
-const types = ["All", "Wholesale", "Retail", "Distribution"];
+import { cn, formatPlantLabel } from "@/lib/utils";
 
 export default function StoresPage() {
   const [dealers, setDealers] = useState<DealerData[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
-  const [type, setType] = useState("All");
+  const [plantFilter, setPlantFilter] = useState<number | "all">("all");
 
   useEffect(() => {
     fetch("/api/dealers", { cache: "no-store" })
@@ -20,14 +18,24 @@ export default function StoresPage() {
       .finally(() => setLoading(false));
   }, []);
 
-  const filtered = dealers.filter((d) => {
-    const matchSearch =
-      !search ||
-      d.name.toLowerCase().includes(search.toLowerCase()) ||
-      d.city.toLowerCase().includes(search.toLowerCase());
-    const matchType = type === "All" || d.type === type;
-    return matchSearch && matchType;
-  });
+  const plantNumbers = [
+    ...new Set(
+      dealers
+        .map((d) => d.plantNumber)
+        .filter((n): n is number => n != null && n >= 1)
+    ),
+  ].sort((a, b) => a - b);
+
+  const filtered = dealers
+    .filter((d) => {
+      const matchSearch =
+        !search ||
+        d.name.toLowerCase().includes(search.toLowerCase()) ||
+        d.city.toLowerCase().includes(search.toLowerCase());
+      const matchPlant = plantFilter === "all" || d.plantNumber === plantFilter;
+      return matchSearch && matchPlant;
+    })
+    .sort((a, b) => (a.plantNumber ?? 999) - (b.plantNumber ?? 999));
 
   return (
     <div className="py-12 bg-[#f0f4f8] min-h-screen">
@@ -41,21 +49,37 @@ export default function StoresPage() {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
-          <div className="flex flex-wrap gap-2">
-            {types.map((t) => (
+          {plantNumbers.length > 0 && (
+            <div className="flex flex-wrap gap-2">
               <button
-                key={t}
                 type="button"
-                onClick={() => setType(t)}
+                onClick={() => setPlantFilter("all")}
                 className={cn(
                   "px-4 py-2 rounded-full text-sm font-medium border",
-                  type === t ? "border-primary text-primary bg-light-blue" : "border-gray-200 text-muted"
+                  plantFilter === "all"
+                    ? "border-primary text-primary bg-light-blue"
+                    : "border-gray-200 text-muted"
                 )}
               >
-                {t}
+                All
               </button>
-            ))}
-          </div>
+              {plantNumbers.map((n) => (
+                <button
+                  key={n}
+                  type="button"
+                  onClick={() => setPlantFilter(n)}
+                  className={cn(
+                    "px-4 py-2 rounded-full text-sm font-medium border",
+                    plantFilter === n
+                      ? "border-primary text-primary bg-light-blue"
+                      : "border-gray-200 text-muted"
+                  )}
+                >
+                  {formatPlantLabel(n)}
+                </button>
+              ))}
+            </div>
+          )}
         </div>
         {loading ? (
           <div className="grid md:grid-cols-2 gap-6">
@@ -65,8 +89,8 @@ export default function StoresPage() {
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {filtered.map((d, i) => (
-              <DealerCard key={d._id} dealer={d} index={i + 1} />
+            {filtered.map((d) => (
+              <DealerCard key={d._id} dealer={d} />
             ))}
           </div>
         )}

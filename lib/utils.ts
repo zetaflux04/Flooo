@@ -1,3 +1,7 @@
+export function formatPlantLabel(plantNumber: number): string {
+  return `Plant ${plantNumber}`;
+}
+
 export function formatPrice(amount: number): string {
   return new Intl.NumberFormat("en-IN", {
     style: "currency",

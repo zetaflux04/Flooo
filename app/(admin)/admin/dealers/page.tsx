@@ -7,7 +7,7 @@ import Modal from "@/components/ui/Modal";
 import FormField from "@/components/ui/FormField";
 import { adminFetch } from "@/lib/admin-fetch";
 import { Download, Package } from "lucide-react";
-import { formatPrice } from "@/lib/utils";
+import { formatPlantLabel, formatPrice } from "@/lib/utils";
 
 interface DealerProduct {
   productId: string;
@@ -19,7 +19,7 @@ interface Dealer {
   _id: string;
   name: string;
   code: string;
-  type: string;
+  plantNumber?: number;
   city: string;
   state: string;
   address: string;
@@ -44,10 +44,27 @@ interface CatalogProduct {
   isActive?: boolean;
 }
 
-const emptyDealer = {
+type DealerForm = {
+  name: string;
+  code: string;
+  plantNumber: number | "";
+  city: string;
+  state: string;
+  address: string;
+  phone: string;
+  manager: string;
+  managerPhone: string;
+  email: string;
+  about: string;
+  pincode: string;
+  timings: string;
+  capacity: number;
+};
+
+const emptyDealer: DealerForm = {
   name: "",
   code: "",
-  type: "Retail",
+  plantNumber: 1,
   city: "",
   state: "",
   address: "",
@@ -62,14 +79,14 @@ const emptyDealer = {
 };
 
 const dealerFields: {
-  key: keyof typeof emptyDealer;
+  key: keyof DealerForm;
   label: string;
   placeholder: string;
   type?: string;
 }[] = [
   { key: "name", label: "Dealer Name", placeholder: "e.g. Flooo Store Noida" },
   { key: "code", label: "Dealer Code", placeholder: "e.g. DL-001" },
-  { key: "type", label: "Type", placeholder: "Retail or Wholesale" },
+  { key: "plantNumber", label: "Plant Number", placeholder: "e.g. 1 for Plant 1", type: "number" },
   { key: "city", label: "City", placeholder: "e.g. Noida" },
   { key: "state", label: "State", placeholder: "e.g. Uttar Pradesh" },
   { key: "address", label: "Address", placeholder: "Full street address" },
@@ -90,7 +107,7 @@ export default function AdminDealersPage() {
   const [productsModal, setProductsModal] = useState(false);
   const [editing, setEditing] = useState<Dealer | null>(null);
   const [productsDealer, setProductsDealer] = useState<Dealer | null>(null);
-  const [form, setForm] = useState(emptyDealer);
+  const [form, setForm] = useState<DealerForm>(emptyDealer);
   const [storeProducts, setStoreProducts] = useState<Record<string, { enabled: boolean; stock: number }>>({});
   const [loading, setLoading] = useState(false);
 
@@ -107,18 +124,42 @@ export default function AdminDealersPage() {
       });
   }, []);
 
+  const nextPlantNumber = () =>
+    dealers.length > 0
+      ? Math.max(0, ...dealers.map((d) => d.plantNumber ?? 0)) + 1
+      : 1;
+
+  const buildPayload = () => {
+    const plantNumber = Number(form.plantNumber);
+    const payload: Record<string, unknown> = {
+      ...form,
+      isActive: true,
+      capacity: Number(form.capacity) || 0,
+    };
+    if (Number.isFinite(plantNumber) && plantNumber >= 1) {
+      payload.plantNumber = Math.floor(plantNumber);
+    } else if (!editing) {
+      payload.plantNumber = nextPlantNumber();
+    } else {
+      delete payload.plantNumber;
+    }
+    return payload;
+  };
+
   const openAdd = () => {
     setEditing(null);
-    setForm(emptyDealer);
+    setForm({ ...emptyDealer, plantNumber: nextPlantNumber() });
     setModal(true);
   };
 
   const openEdit = (d: Dealer) => {
     setEditing(d);
+    const plantNumber =
+      d.plantNumber != null && d.plantNumber >= 1 ? d.plantNumber : nextPlantNumber();
     setForm({
       name: d.name,
       code: d.code,
-      type: d.type,
+      plantNumber,
       city: d.city,
       state: d.state,
       address: d.address,
@@ -204,7 +245,7 @@ export default function AdminDealersPage() {
       const url = editing ? `/api/admin/dealers/${editing._id}` : "/api/admin/dealers";
       const res = await adminFetch(url, {
         method: editing ? "PATCH" : "POST",
-        body: JSON.stringify({ ...form, isActive: true }),
+        body: JSON.stringify(buildPayload()),
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error);
@@ -246,8 +287,8 @@ export default function AdminDealersPage() {
           <thead>
             <tr className="bg-light-blue text-left">
               <th className="p-3">Name</th>
+              <th className="p-3">Plant</th>
               <th className="p-3">City</th>
-              <th className="p-3">Type</th>
               <th className="p-3">Products</th>
               <th className="p-3">Status</th>
               <th className="p-3">Actions</th>
@@ -257,8 +298,12 @@ export default function AdminDealersPage() {
             {dealers.map((d) => (
               <tr key={d._id} className="border-t">
                 <td className="p-3 font-medium">{d.name}</td>
+                <td className="p-3">
+                  {d.plantNumber != null && d.plantNumber >= 1
+                    ? formatPlantLabel(d.plantNumber)
+                    : "—"}
+                </td>
                 <td className="p-3">{d.city}</td>
-                <td className="p-3">{d.type}</td>
                 <td className="p-3">
                   <span className="text-xs bg-light-blue text-secondary px-2 py-1 rounded-full">
                     {productCount(d)} available
@@ -302,12 +347,18 @@ export default function AdminDealersPage() {
               type={type}
               placeholder={placeholder}
               value={String(form[key] ?? "")}
-              onChange={(e) =>
+              onChange={(e) => {
+                const raw = e.target.value;
                 setForm({
                   ...form,
-                  [key]: type === "number" ? +e.target.value : e.target.value,
-                })
-              }
+                  [key]:
+                    type === "number"
+                      ? raw === ""
+                        ? ""
+                        : Number(raw)
+                      : raw,
+                } as DealerForm);
+              }}
             />
           ))}
         </div>

@@ -21,7 +21,7 @@ const usefulLinks = [
 ];
 
 const socialLinks = [
-  { href: "#", label: "Facebook", icon: Facebook },
+  { href: "https://www.facebook.com/profile.php?id=61569604631975", label: "Facebook", icon: Facebook },
   { href: "#", label: "Twitter", icon: Twitter },
   { href: "#", label: "LinkedIn", icon: Linkedin },
 ];

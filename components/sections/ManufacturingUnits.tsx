@@ -11,7 +11,13 @@ export default function ManufacturingUnits() {
   useEffect(() => {
     fetch("/api/dealers")
       .then((r) => r.json())
-      .then((d) => setDealers(Array.isArray(d) ? d : []))
+      .then((d) =>
+        setDealers(
+          Array.isArray(d)
+            ? [...d].sort((a, b) => (a.plantNumber ?? 999) - (b.plantNumber ?? 999))
+            : []
+        )
+      )
       .finally(() => setLoading(false));
   }, []);
 
@@ -25,7 +31,7 @@ export default function ManufacturingUnits() {
             ? Array.from({ length: 4 }).map((_, i) => (
                 <Skeleton key={i} className="h-64 w-full" />
               ))
-            : dealers.map((d, i) => <DealerCard key={d._id} dealer={d} index={i + 1} />)}
+            : dealers.map((d) => <DealerCard key={d._id} dealer={d} />)}
         </div>
       </div>
     </section>

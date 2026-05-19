@@ -1,12 +1,12 @@
 import Link from "next/link";
 import { Phone, MapPin, User, Clock } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { formatPlantLabel } from "@/lib/utils";
 
 export interface DealerData {
   _id: string;
   name: string;
   code: string;
-  type: string;
+  plantNumber?: number;
   city: string;
   state: string;
   address: string;
@@ -20,12 +20,6 @@ export interface DealerData {
   capacity?: number;
 }
 
-const typeColors: Record<string, string> = {
-  Wholesale: "text-orange-600",
-  Retail: "text-green-600",
-  Distribution: "text-blue-600",
-};
-
 const CAPACITY_MAX = 15000;
 
 function formatPhone(phone: string) {
@@ -34,43 +28,35 @@ function formatPhone(phone: string) {
   return phone;
 }
 
-export default function DealerCard({
-  dealer,
-  index,
-}: {
-  dealer: DealerData;
-  index?: number;
-}) {
+export default function DealerCard({ dealer }: { dealer: DealerData }) {
   const phoneDigits = dealer.phone.replace(/\D/g, "").slice(-10);
   const capacity = dealer.capacity ?? 0;
   const capacityPct = Math.min(100, Math.round((capacity / CAPACITY_MAX) * 100));
-  const manufacturerLabel = index
-    ? `FLOOO Manufacturer ${index}`
-    : dealer.code;
+  const plantLabel =
+    dealer.plantNumber != null && dealer.plantNumber >= 1
+      ? formatPlantLabel(dealer.plantNumber)
+      : null;
 
   return (
     <div className="rounded-card overflow-hidden shadow-[0_10px_40px_-10px_rgba(1,35,122,0.15)] bg-white transition-transform duration-300 hover:-translate-y-1">
       <div className="bg-gradient-to-r from-secondary to-primary px-5 py-4 relative">
         <div className="flex items-start justify-between gap-3">
           <div className="flex items-start gap-3 min-w-0">
-            {index !== undefined && (
+            {plantLabel && (
               <span className="w-9 h-9 rounded-full bg-white text-secondary font-bold text-sm flex items-center justify-center shrink-0">
-                {index}
+                {dealer.plantNumber}
               </span>
             )}
             <div className="min-w-0">
               <h3 className="font-bold text-white text-lg leading-tight truncate">{dealer.name}</h3>
-              <p className="text-white/80 text-xs mt-0.5">{manufacturerLabel}</p>
+              <p className="text-white/80 text-xs mt-0.5">{dealer.code}</p>
             </div>
           </div>
-          <span
-            className={cn(
-              "shrink-0 bg-white rounded-full px-3 py-1 text-xs font-bold uppercase tracking-wide",
-              typeColors[dealer.type] || "text-secondary"
-            )}
-          >
-            {dealer.type}
-          </span>
+          {plantLabel && (
+            <span className="shrink-0 bg-white rounded-full px-3 py-1 text-xs font-bold uppercase tracking-wide text-secondary">
+              {plantLabel}
+            </span>
+          )}
         </div>
       </div>
 

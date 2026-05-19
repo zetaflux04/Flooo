@@ -9,7 +9,7 @@ export interface IDealerProduct {
 export interface IDealer extends Document {
   name: string;
   code: string;
-  type: "Wholesale" | "Retail" | "Distribution";
+  plantNumber?: number;
   city: string;
   state: string;
   address: string;
@@ -39,11 +39,7 @@ const DealerSchema = new Schema<IDealer>(
   {
     name: { type: String, required: true },
     code: { type: String, required: true, unique: true },
-    type: {
-      type: String,
-      enum: ["Wholesale", "Retail", "Distribution"],
-      required: true,
-    },
+    plantNumber: { type: Number, unique: true, sparse: true, min: 1 },
     city: { type: String, required: true },
     state: { type: String, required: true },
     address: { type: String, required: true },

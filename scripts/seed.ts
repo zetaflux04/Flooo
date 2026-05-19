@@ -127,7 +127,7 @@ const dealers = [
   {
     name: "BOHRA SALES & TRADING",
     code: "BST-002",
-    type: "Retail",
+    plantNumber: 1,
     city: "Barabanki",
     state: "UP",
     address: "0-312, UPSIDC, Kursi Road, Distt.: Barabanki, UP 225302",
@@ -144,7 +144,7 @@ const dealers = [
   {
     name: "Bohra Beverages Pvt. Ltd.",
     code: "BB-001",
-    type: "Wholesale",
+    plantNumber: 2,
     city: "Barabanki",
     state: "UP",
     address: "H-37/38, Agro Park-II, UPSIOC Kursi Road, Barabanki (U.P.) 225302",
@@ -161,7 +161,7 @@ const dealers = [
   {
     name: "Vijay & Sons",
     code: "VS-003",
-    type: "Retail",
+    plantNumber: 3,
     city: "Gurugram",
     state: "Haryana",
     address: "PH-11 NEAR HERITAGE SCHOOL PALLAVPURAM - 250110",
@@ -178,7 +178,7 @@ const dealers = [
   {
     name: "FLOOO - Vyaan Industries Pvt. Ltd.",
     code: "VI-004",
-    type: "Distribution",
+    plantNumber: 4,
     city: "Greater Noida",
     state: "UP",
     address: "Plot A-70, Ecotech 6, Greater Noida, UP 201310",
