@@ -1,10 +1,10 @@
 import { NextResponse } from "next/server";
 import fs from "fs";
-import { ensureQRCode, getQRPath } from "@/lib/qr";
+import { generateQRCode } from "@/lib/qr";
 
 export async function GET() {
   try {
-    const path = await ensureQRCode();
+    const path = await generateQRCode();
     const buffer = fs.readFileSync(path);
     return new NextResponse(buffer, {
       headers: {

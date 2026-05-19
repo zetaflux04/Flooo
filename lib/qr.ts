@@ -4,9 +4,29 @@ import path from "path";
 
 const QR_PATH = path.join(process.cwd(), "public", "flooo-qr.png");
 
+const DEFAULT_PRODUCTION_ORIGIN = "https://www.lspenterprises.in";
+
+function isLocalOrigin(url: string): boolean {
+  return /^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?/i.test(url);
+}
+
+function resolveOrigin(): string {
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL?.trim();
+  if (siteUrl) return siteUrl.replace(/\/$/, "");
+
+  const appUrl = process.env.NEXT_PUBLIC_APP_URL?.trim();
+  if (appUrl) {
+    const candidates = appUrl.split(",").map((u) => u.trim()).filter(Boolean);
+    const production = candidates.find((u) => !isLocalOrigin(u));
+    if (production) return production.replace(/\/$/, "");
+    if (candidates[0]) return candidates[0].replace(/\/$/, "");
+  }
+
+  return DEFAULT_PRODUCTION_ORIGIN;
+}
+
 export function getStoresUrl(): string {
-  const base = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
-  return `${base.replace(/\/$/, "")}/stores`;
+  return `${resolveOrigin()}/stores`;
 }
 
 export async function generateQRCode(): Promise<string> {
