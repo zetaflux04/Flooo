@@ -18,13 +18,13 @@ export default function StoresPage() {
       .finally(() => setLoading(false));
   }, []);
 
-  const plantNumbers = [
-    ...new Set(
+  const plantNumbers = Array.from(
+    new Set(
       dealers
         .map((d) => d.plantNumber)
         .filter((n): n is number => n != null && n >= 1)
-    ),
-  ].sort((a, b) => a - b);
+    )
+  ).sort((a, b) => a - b);
 
   const filtered = dealers
     .filter((d) => {
