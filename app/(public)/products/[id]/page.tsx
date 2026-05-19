@@ -79,7 +79,7 @@ export default function ProductDetailPage() {
         <div className="grid lg:grid-cols-2 gap-12 mb-16">
           <div className="card p-4 relative">
             <Badge variant="green" className="absolute top-6 left-6 z-10">
-              {isApparel ? "APPAREL" : "BIS CERTIFIED"}
+              {isApparel ? "APPAREL" : "BOTTLE"}
             </Badge>
             <div className="relative h-96 bg-gradient-to-b from-light-blue to-white rounded-lg flex items-center justify-center">
               <Image
