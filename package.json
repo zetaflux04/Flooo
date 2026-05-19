@@ -1,0 +1,47 @@
+{
+  "name": "flooo",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "seed": "tsx scripts/seed.ts",
+    "qr": "tsx scripts/generate-qr.ts"
+  },
+  "dependencies": {
+    "axios": "^1.7.9",
+    "bcryptjs": "^2.4.3",
+    "cloudinary": "^2.5.1",
+    "jose": "^6.2.3",
+    "jsonwebtoken": "^9.0.2",
+    "lucide-react": "^0.468.0",
+    "mongoose": "^8.9.3",
+    "next": "^14.2.21",
+    "nodemailer": "^6.9.16",
+    "qrcode": "^1.5.4",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-hot-toast": "^2.4.1",
+    "recharts": "^2.15.0",
+    "zustand": "^4.5.5"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "@types/jsonwebtoken": "^9.0.7",
+    "@types/node": "^20.17.10",
+    "@types/nodemailer": "^6.4.17",
+    "@types/qrcode": "^1.5.5",
+    "@types/react": "^18.3.18",
+    "@types/react-dom": "^18.3.5",
+    "autoprefixer": "^10.4.20",
+    "dotenv": "^16.4.7",
+    "eslint": "^8.57.1",
+    "eslint-config-next": "^14.2.21",
+    "postcss": "^8.4.49",
+    "tailwindcss": "^3.4.17",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2"
+  }
+}
