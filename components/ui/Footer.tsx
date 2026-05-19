@@ -81,7 +81,7 @@ export default function Footer() {
                 </li>
                 <li className="flex gap-3">
                   <Phone className="w-5 h-5 text-primary shrink-0 mt-0.5" />
-                  <a href={PHONE_HREF} className="hover:text-primary transition-colors">
+                  <a href={COMPANY_PHONE_HREF} className="hover:text-primary transition-colors">
                     Call Us: {COMPANY_PHONE_DISPLAY}
                   </a>
                 </li>

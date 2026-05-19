@@ -10,10 +10,10 @@ export default function Hero() {
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <div>
             <span className="inline-block bg-accent/20 border border-accent/40 text-accent font-semibold px-4 py-1.5 rounded-full mb-6 water-shimmer">
-              Pure Water Delivered
+              Have Faith In Us
             </span>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
-              Always Want Safe and Good Water for Healthy Life
+              Premium Quality Water You Can Trust Every Day
             </h1>
             <p className="text-lg text-white/85 mb-8 max-w-lg">
               BIS Certified · RO+UV+UF Purified · 100ml, 250ml, 500ml &amp; 1 Litre packs delivered to your door.
