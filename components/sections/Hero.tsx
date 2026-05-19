@@ -17,7 +17,7 @@ export default function Hero() {
               Have Faith In Us
             </span>
             <p className="mb-4">
-              <span>☆ LSP Enterprises </span>
+              <span>☆ LSP Flooo </span>
               <span className="ml-2">☆ LPS Flowers</span>
             </p>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">

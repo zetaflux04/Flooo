@@ -32,7 +32,7 @@ export default function ProductsSection() {
       <div className="page-container">
         <h2 className="section-title">We Deliver Best Quality Packaging Drinking Water Bottles</h2>
         <p className="section-subtitle mb-4 mt-4">
-          <span>☆ LSP Enterprises</span>
+          <span>☆ LSP Flooo</span>
           <span className="ml-4">☆ LPS Flowers</span>
         </p>
         <div className="flex flex-wrap justify-center gap-2 mb-12">
