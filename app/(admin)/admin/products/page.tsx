@@ -27,10 +27,10 @@ const emptyForm = {
   name: "",
   category: "bottle",
   size: "500ml",
-  packQty: 24,
-  price: 0,
+  packQty: "24",
+  price: "",
   description: "",
-  stock: 100,
+  stock: "100",
   imageBase64: "",
 };
 
@@ -56,10 +56,10 @@ export default function AdminProductsPage() {
       name: p.name,
       category: p.category || "bottle",
       size: p.size,
-      packQty: p.packQty,
-      price: p.price,
+      packQty: String(p.packQty),
+      price: String(p.price),
       description: p.description,
-      stock: p.stock,
+      stock: String(p.stock),
       imageBase64: "",
     });
     setModal(true);
@@ -78,7 +78,13 @@ export default function AdminProductsPage() {
     try {
       const url = editing ? `/api/admin/products/${editing._id}` : "/api/admin/products";
       const method = editing ? "PATCH" : "POST";
-      const res = await adminFetch(url, { method, body: JSON.stringify(form) });
+      const payload = {
+        ...form,
+        packQty: parseInt(form.packQty, 10) || 0,
+        price: form.price === "" ? 0 : parseFloat(form.price) || 0,
+        stock: parseInt(form.stock, 10) || 0,
+      };
+      const res = await adminFetch(url, { method, body: JSON.stringify(payload) });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error);
       toast.success(editing ? "Product updated" : "Product added");
@@ -159,9 +165,36 @@ export default function AdminProductsPage() {
             <option value="others">Others</option>
           </FormField>
           <FormField label="Size" id="product-size" type="text" placeholder="e.g. 1000 ml" value={form.size} onChange={(e) => setForm({ ...form, size: e.target.value })} />
-          <FormField label="Pack Quantity" id="product-packQty" type="number" placeholder="e.g. 24" value={form.packQty} onChange={(e) => setForm({ ...form, packQty: +e.target.value })} />
-          <FormField label="Price (INR)" id="product-price" type="number" placeholder="e.g. 502" value={form.price} onChange={(e) => setForm({ ...form, price: +e.target.value })} />
-          <FormField label="Stock" id="product-stock" type="number" placeholder="e.g. 100" value={form.stock} onChange={(e) => setForm({ ...form, stock: +e.target.value })} />
+          <FormField
+            label="Pack Quantity"
+            id="product-packQty"
+            type="text"
+            inputMode="numeric"
+            placeholder="e.g. 24"
+            value={form.packQty}
+            onChange={(e) => setForm({ ...form, packQty: e.target.value.replace(/\D/g, "") })}
+          />
+          <FormField
+            label="Price (INR)"
+            id="product-price"
+            type="text"
+            inputMode="decimal"
+            placeholder="e.g. 502"
+            value={form.price}
+            onChange={(e) => {
+              const v = e.target.value;
+              if (v === "" || /^\d*\.?\d*$/.test(v)) setForm({ ...form, price: v });
+            }}
+          />
+          <FormField
+            label="Stock"
+            id="product-stock"
+            type="text"
+            inputMode="numeric"
+            placeholder="e.g. 100"
+            value={form.stock}
+            onChange={(e) => setForm({ ...form, stock: e.target.value.replace(/\D/g, "") })}
+          />
           <FormField label="Description" id="product-description" as="textarea" placeholder="Product description for customers" value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} />
           <div className="space-y-1.5">
             <label htmlFor="product-image" className="text-sm font-medium text-secondary block">

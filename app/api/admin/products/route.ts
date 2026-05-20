@@ -29,7 +29,7 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     const { name, size, packQty, price, description, stock, image, imageBase64, category } = body;
 
-    if (!name || !size || !price) {
+    if (!name?.trim() || !size?.trim() || price == null || price === "") {
       return jsonError("Name, size, and price are required");
     }
 
