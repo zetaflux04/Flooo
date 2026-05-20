@@ -6,7 +6,6 @@ const stats = [
   { icon: "🏭", value: 4, suffix: "", label: "Manufacturing Units" },
   { icon: "🏪", value: 5, suffix: "", label: "Store Locations" },
   { icon: "💧", value: 100, suffix: "%", label: "Purified" },
-  { icon: "✅", value: 0, suffix: "", label: "BIS Certified", text: "BIS" },
   { icon: "🛡️", value: 0, suffix: "", label: "FSSAI Certified", text: "FSSAI" },
 ];
 
@@ -49,7 +48,7 @@ function Counter({ target, suffix, text }: { target: number; suffix: string; tex
 export default function StatsBar() {
   return (
     <section className="bg-white py-12">
-      <div className="page-container grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-8 text-center text-secondary">
+      <div className="page-container grid grid-cols-2 sm:grid-cols-4 gap-8 text-center text-secondary">
         {stats.map((s) => (
           <div key={s.label}>
             <span className="text-4xl mb-3 block">{s.icon}</span>

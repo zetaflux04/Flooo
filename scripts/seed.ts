@@ -56,34 +56,21 @@ const Admin = mongoose.models.Admin || mongoose.model("Admin", AdminSchema);
 
 const products = [
   {
-    name: "Flooo 100ml",
-    slug: "flooo-100ml",
-    category: "bottle",
-    size: "100ml",
-    packQty: 48,
-    price: 65,
-    description:
-      "Compact 100ml bottles — perfect for events, sampling, and on-the-go hydration. BIS certified, RO+UV+UF purified.",
-    image: "/1.png",
-    stock: 500,
-    isActive: true,
-  },
-  {
-    name: "Flooo 250ml",
-    slug: "flooo-250ml",
+    name: "Floo 250 ml",
+    slug: "floo-250ml",
     category: "bottle",
     size: "250ml",
     packQty: 24,
     price: 85,
     description:
-      "Premium BIS-certified mineral water in convenient 250ml bottles. Perfect for events, offices, and on-the-go hydration.",
+      "Premium FSSAI-certified mineral water in convenient 250ml bottles. Perfect for events, offices, and on-the-go hydration.",
     image: "/flooo-bottle.png",
     stock: 500,
     isActive: true,
   },
   {
-    name: "Flooo 500ml",
-    slug: "flooo-500ml",
+    name: "Floo 500 ml",
+    slug: "floo-500ml",
     category: "bottle",
     size: "500ml",
     packQty: 24,
@@ -95,14 +82,50 @@ const products = [
     isActive: true,
   },
   {
-    name: "Flooo 1 Litre",
-    slug: "flooo-1l",
+    name: "Floo 1000 ml",
+    slug: "floo-1l",
     category: "bottle",
-    size: "1L",
+    size: "1000 ml",
     packQty: 12,
     price: 120,
     description:
-      "Family-size 1 litre bottles for maximum value. BIS certified, sourced from state-of-the-art manufacturing units.",
+      "Family-size 1000 ml bottles for maximum value. FSSAI certified, sourced from state-of-the-art manufacturing units.",
+    image: "/3.png",
+    stock: 500,
+    isActive: true,
+  },
+  {
+    name: "Flowers 250 ml",
+    slug: "flowers-250ml",
+    category: "bottle",
+    size: "250ml",
+    packQty: 24,
+    price: 80,
+    description: "Flowers brand FSSAI-certified mineral water in convenient 250ml bottles.",
+    image: "/flooo-bottle.png",
+    stock: 500,
+    isActive: true,
+  },
+  {
+    name: "Flowers 500 ml",
+    slug: "flowers-500ml",
+    category: "bottle",
+    size: "500ml",
+    packQty: 24,
+    price: 100,
+    description: "Flowers brand 500ml pack — ideal for daily home and office use.",
+    image: "/2.png",
+    stock: 500,
+    isActive: true,
+  },
+  {
+    name: "Flowers 1000 ml",
+    slug: "flowers-1l",
+    category: "bottle",
+    size: "1000 ml",
+    packQty: 12,
+    price: 115,
+    description: "Flowers brand 1000 ml bottles for maximum value.",
     image: "/3.png",
     stock: 500,
     isActive: true,
@@ -136,7 +159,7 @@ const dealers = [
     email: "bohra@aquapure.in",
     manager: "Manish Kumar Pandey",
     managerPhone: "+919651063155",
-    about: "Authorized Flooo retail partner serving Barabanki and nearby areas with BIS-certified mineral water.",
+    about: "Authorized Flooo retail partner serving Barabanki and nearby areas with FSSAI-certified mineral water.",
     timings: "8:00 AM - 9:00 PM",
     capacity: 10000,
     isActive: true,
@@ -199,6 +222,7 @@ async function seed() {
   await mongoose.connect(uri);
   console.log("Connected to MongoDB");
 
+  await Product.deleteMany({});
   for (const p of products) {
     await Product.findOneAndUpdate({ slug: p.slug }, p, { upsert: true, new: true });
     console.log(`Product: ${p.name}`);

@@ -31,7 +31,7 @@ export default function PremiumDeliveryCta() {
               Ready To Get Our Premium Water Delivery Service
             </h2>
             <p className="text-white/80 mb-8 leading-relaxed">
-              Book your order today — no online payment required. We deliver pure, BIS-certified water
+              Book your order today — no online payment required. We deliver pure, FSSAI-certified water
               straight to your doorstep across NCR and UP.
             </p>
             <ul className="space-y-3 mb-8">

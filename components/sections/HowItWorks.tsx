@@ -1,5 +1,5 @@
 const steps = [
-  { num: 1, icon: "🔍", title: "Browse Products", desc: "Explore our range of 250ml, 500ml & 1L packs." },
+  { num: 1, icon: "🔍", title: "Browse Products", desc: "Explore our range of 250ml, 500ml & 1000 ml packs." },
   { num: 2, icon: "🛒", title: "Add to Cart", desc: "Select your preferred pack size and quantity." },
   { num: 3, icon: "📦", title: "Place Order", desc: "Enter delivery address and confirm your order." },
   { num: 4, icon: "🚚", title: "Get Delivered", desc: "We call to confirm and deliver to your doorstep." },

@@ -97,7 +97,7 @@ const dealerFields: {
   { key: "pincode", label: "Pincode", placeholder: "e.g. 201310" },
   { key: "about", label: "About", placeholder: "Brief store description" },
   { key: "timings", label: "Timings", placeholder: "e.g. 9 AM - 6 PM" },
-  { key: "capacity", label: "Capacity (Litres)", placeholder: "e.g. 1000", type: "number" },
+  { key: "capacity", label: "Capacity (ML)", placeholder: "e.g. 1000", type: "number" },
 ];
 
 export default function AdminDealersPage() {

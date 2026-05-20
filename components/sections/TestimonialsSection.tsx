@@ -27,7 +27,7 @@ const testimonials = [
     name: "Amit Patel",
     role: "Retail Partner",
     location: "Barabanki, UP",
-    text: "I stock LSP Enterprises at my shop for the neighbourhood. Customers trust the BIS certification, and the quality stays consistent in every batch.",
+    text: "I stock LSP Enterprises at my shop for the neighbourhood. Customers trust the FSSAI certification, and the quality stays consistent in every batch.",
     rating: 5,
   },
   {

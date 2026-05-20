@@ -187,7 +187,7 @@ export default function ProductDetailPage() {
             <p className="text-muted">
               {isApparel
                 ? "Premium quality cotton blend. Official LSP Enterprises branded merchandise."
-                : "LSP Enterprises is BIS certified added mineral water manufactured under strict quality controls. All products meet IS 14543 standards."}
+                : "LSP Enterprises is FSSAI certified added mineral water manufactured under strict quality controls. All products meet IS 14543 standards."}
             </p>
           )}
         </div>

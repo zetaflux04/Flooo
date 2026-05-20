@@ -5,13 +5,13 @@ export default function AboutPage() {
         <h1 className="text-4xl font-bold text-secondary mb-6">About LSP Enterprises</h1>
         <div className="card space-y-4 text-muted leading-relaxed">
           <p>
-            <strong className="text-secondary">LSP Enterprises</strong> is a BIS-certified added mineral water brand.
+            <strong className="text-secondary">LSP Enterprises</strong> is a FSSAI-certified added mineral water brand.
             We deliver pure, healthy hydration
             across North India through our network of manufacturing units and retail partners.
           </p>
           <p>
             Our water undergoes multi-stage RO + UV + UF purification and is enriched with essential minerals
-            for optimal taste and health benefits. Available in 250ml, 500ml, and 1 Litre packs.
+            for optimal taste and health benefits. Available in 250ml, 500ml, and 1000 ml packs.
           </p>
           <p>
             With manufacturing facilities in Barabanki, Gurugram, and Greater Noida, we are committed to

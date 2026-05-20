@@ -60,7 +60,7 @@ export default function Footer() {
                 asLink={false}
               />
               <p className="text-white/70 text-sm leading-relaxed mb-6">
-                BIS-certified added mineral water by LSP Enterprises. Pure hydration delivered across North India.
+                FSSAI-certified added mineral water by LSP Enterprises. Pure hydration delivered across North India.
               </p>
               <div>
                 <h4 className="font-semibold text-white mb-2">Open Hours:</h4>

@@ -156,14 +156,9 @@ export default function AdminProductsPage() {
           <FormField label="Category" id="product-category" as="select" value={form.category} onChange={(e) => setForm({ ...form, category: e.target.value })}>
             <option value="bottle">Bottle</option>
             <option value="apparel">Apparel</option>
+            <option value="others">Others</option>
           </FormField>
-          <FormField label="Size" id="product-size" as="select" value={form.size} onChange={(e) => setForm({ ...form, size: e.target.value })}>
-            <option value="100ml">100ml</option>
-            <option value="250ml">250ml</option>
-            <option value="500ml">500ml</option>
-            <option value="1L">1L</option>
-            <option value="Standard">Standard (T-shirt)</option>
-          </FormField>
+          <FormField label="Size" id="product-size" type="text" placeholder="e.g. 1000 ml" value={form.size} onChange={(e) => setForm({ ...form, size: e.target.value })} />
           <FormField label="Pack Quantity" id="product-packQty" type="number" placeholder="e.g. 24" value={form.packQty} onChange={(e) => setForm({ ...form, packQty: +e.target.value })} />
           <FormField label="Price (INR)" id="product-price" type="number" placeholder="e.g. 502" value={form.price} onChange={(e) => setForm({ ...form, price: +e.target.value })} />
           <FormField label="Stock" id="product-stock" type="number" placeholder="e.g. 100" value={form.stock} onChange={(e) => setForm({ ...form, stock: +e.target.value })} />

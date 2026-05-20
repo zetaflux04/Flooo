@@ -5,8 +5,8 @@ import { ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const faqs = [
-  { q: "Is LSP Enterprises water BIS certified?", a: "Yes, LSP Enterprises is fully BIS certified added mineral water meeting all Indian quality standards." },
-  { q: "What sizes are available?", a: "We offer 250ml, 500ml, and 1 Litre packs in boxes of 24 or 12." },
+  { q: "Is LSP Enterprises water FSSAI certified?", a: "Yes, LSP Enterprises is fully FSSAI certified added mineral water meeting all Indian quality standards." },
+  { q: "What sizes are available?", a: "We offer 250ml, 500ml, and 1000 ml packs in boxes of 24 or 12." },
   { q: "How is the water purified?", a: "Multi-stage RO + UV + UF purification with mineral enrichment for optimal taste." },
   { q: "Can I order in bulk?", a: "Yes! Contact your nearest wholesale unit for bulk pricing and delivery." },
   { q: "How long does delivery take?", a: "Same-day delivery is available in serviceable areas. We call to confirm every order." },

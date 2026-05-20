@@ -21,10 +21,12 @@ export default function Hero() {
               <span className="ml-2">☆ LPS Flowers</span>
             </p>
             <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight mb-6">
-              Premium Quality Pack Drinking Water You Can Trust Every Day / Every Sip
+              Premium Quality Pack Drinking Water.
+              <br />
+              Feel Every Sip💦
             </h1>
             <p className="text-lg text-white/85 mb-8 max-w-lg mx-auto lg:mx-0">
-              BIS Certified · RO+UV+UF Purified · 100ml, 250ml, 500ml &amp; 1 Litre packs delivered to your door.
+              FSSAI Certified · RO+UV+UF Purified · 200ml, 250ml, 500ml &amp; 1000 ml packs delivered to your door.
             </p>
             <div className="flex flex-wrap gap-4 justify-center lg:justify-start">
               <Link href="/products" className="btn-primary">

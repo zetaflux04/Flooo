@@ -36,7 +36,7 @@ export default function ProductsPage() {
       <div className="page-container">
         <h1 className="text-4xl font-bold text-secondary mb-2">Our Hydration Essentials</h1>
         <p className="text-muted mb-8 max-w-2xl">
-          Premium BIS and FSSAI certified water bottles and LSP Enterprises branded apparel.
+          Premium FSSAI certified water bottles and LSP Enterprises branded apparel.
         </p>
         <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
           <div className="flex flex-wrap gap-2">

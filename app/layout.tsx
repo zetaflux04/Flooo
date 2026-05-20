@@ -12,7 +12,7 @@ const poppins = Poppins({
 
 export const metadata: Metadata = {
   title: "LSP Enterprises — Pure Water. Healthy Life.",
-  description: "BIS-certified added mineral water by LSP Enterprises. 250ml, 500ml & 1L packs delivered to your door.",
+  description: "FSSAI-certified added mineral water by LSP Enterprises. 250ml, 500ml & 1000 ml packs delivered to your door.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
