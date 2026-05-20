@@ -6,32 +6,29 @@ import AdminHeader from "@/components/admin/AdminHeader";
 import Modal from "@/components/ui/Modal";
 import FormField from "@/components/ui/FormField";
 import { adminFetch } from "@/lib/admin-fetch";
-import { Download, Package } from "lucide-react";
-import { formatPlantLabel, formatPrice } from "@/lib/utils";
+import { Package } from "lucide-react";
+import { formatDistributorFullLocation } from "@/lib/distributor-display";
+import { formatPrice } from "@/lib/utils";
 
-interface DealerProduct {
+interface DistributorProduct {
   productId: string;
   stock: number;
   isAvailable: boolean;
 }
 
-interface Dealer {
+interface Distributor {
   _id: string;
   name: string;
   code: string;
-  plantNumber?: number;
+  area?: string;
+  address: string;
   city: string;
   state: string;
-  address: string;
-  phone: string;
-  manager: string;
-  managerPhone?: string;
-  email?: string;
-  about?: string;
   pincode?: string;
-  timings?: string;
   capacity?: number;
-  availableProducts?: DealerProduct[];
+  about?: string;
+  mobileNumber: string;
+  availableProducts?: DistributorProduct[];
   isActive: boolean;
 }
 
@@ -44,74 +41,61 @@ interface CatalogProduct {
   isActive?: boolean;
 }
 
-type DealerForm = {
+type DistributorForm = {
   name: string;
   code: string;
-  plantNumber: number | "";
+  area: string;
+  address: string;
   city: string;
   state: string;
-  address: string;
-  phone: string;
-  manager: string;
-  managerPhone: string;
-  email: string;
-  about: string;
   pincode: string;
-  timings: string;
-  capacity: number;
+  capacity: number | "";
+  about: string;
+  mobileNumber: string;
 };
 
-const emptyDealer: DealerForm = {
+const emptyDistributor: DistributorForm = {
   name: "",
   code: "",
-  plantNumber: 1,
+  area: "",
+  address: "",
   city: "",
   state: "",
-  address: "",
-  phone: "",
-  manager: "",
-  managerPhone: "",
-  email: "",
-  about: "",
   pincode: "",
-  timings: "9 AM - 6 PM",
-  capacity: 1000,
+  capacity: "",
+  about: "",
+  mobileNumber: "",
 };
 
-const dealerFields: {
-  key: keyof DealerForm;
+const distributorFields: {
+  key: keyof DistributorForm;
   label: string;
   placeholder: string;
   type?: string;
 }[] = [
-  { key: "name", label: "Dealer Name", placeholder: "e.g. Flooo Store Noida" },
-  { key: "code", label: "Dealer Code", placeholder: "e.g. DL-001" },
-  { key: "plantNumber", label: "Plant Number", placeholder: "e.g. 1 for Plant 1", type: "number" },
-  { key: "city", label: "City", placeholder: "e.g. Noida" },
+  { key: "name", label: "Name", placeholder: "e.g. Ashutosh Pandey" },
+  { key: "code", label: "Code", placeholder: "e.g. PRJ" },
+  { key: "mobileNumber", label: "Mobile Number", placeholder: "e.g. 9651457472" },
+  { key: "area", label: "Area", placeholder: "e.g. Naini" },
+  { key: "address", label: "Address", placeholder: "Street / building address" },
+  { key: "city", label: "City", placeholder: "e.g. Prayagraj" },
   { key: "state", label: "State", placeholder: "e.g. Uttar Pradesh" },
-  { key: "address", label: "Address", placeholder: "Full street address" },
-  { key: "phone", label: "Phone", placeholder: "e.g. 9876543210" },
-  { key: "manager", label: "Manager Name", placeholder: "Contact person name" },
-  { key: "managerPhone", label: "Manager Phone", placeholder: "e.g. 9876543210" },
-  { key: "email", label: "Email", placeholder: "store@example.com" },
-  { key: "pincode", label: "Pincode", placeholder: "e.g. 201310" },
-  { key: "about", label: "About", placeholder: "Brief store description" },
-  { key: "timings", label: "Timings", placeholder: "e.g. 9 AM - 6 PM" },
-  { key: "capacity", label: "Capacity (ML)", placeholder: "e.g. 1000", type: "number" },
+  { key: "pincode", label: "Pincode", placeholder: "e.g. 221008" },
+  { key: "capacity", label: "Capacity (Litres)", placeholder: "e.g. 5000", type: "number" },
 ];
 
-export default function AdminDealersPage() {
-  const [dealers, setDealers] = useState<Dealer[]>([]);
+export default function AdminDistributorsPage() {
+  const [distributors, setDistributors] = useState<Distributor[]>([]);
   const [catalog, setCatalog] = useState<CatalogProduct[]>([]);
   const [modal, setModal] = useState(false);
   const [productsModal, setProductsModal] = useState(false);
-  const [editing, setEditing] = useState<Dealer | null>(null);
-  const [productsDealer, setProductsDealer] = useState<Dealer | null>(null);
-  const [form, setForm] = useState<DealerForm>(emptyDealer);
+  const [editing, setEditing] = useState<Distributor | null>(null);
+  const [productsDistributor, setProductsDistributor] = useState<Distributor | null>(null);
+  const [form, setForm] = useState<DistributorForm>(emptyDistributor);
   const [storeProducts, setStoreProducts] = useState<Record<string, { enabled: boolean; stock: number }>>({});
   const [loading, setLoading] = useState(false);
 
-  const load = () => adminFetch("/api/admin/dealers").then((r) => r.json()).then(setDealers);
+  const load = () => adminFetch("/api/admin/distributors").then((r) => r.json()).then(setDistributors);
 
   useEffect(() => {
     load();
@@ -124,59 +108,50 @@ export default function AdminDealersPage() {
       });
   }, []);
 
-  const nextPlantNumber = () =>
-    dealers.length > 0
-      ? Math.max(0, ...dealers.map((d) => d.plantNumber ?? 0)) + 1
-      : 1;
-
   const buildPayload = () => {
-    const plantNumber = Number(form.plantNumber);
+    const capacity =
+      form.capacity === "" ? 0 : Number(form.capacity);
     const payload: Record<string, unknown> = {
-      ...form,
-      isActive: true,
-      capacity: Number(form.capacity) || 0,
+      name: form.name,
+      code: form.code,
+      area: form.area,
+      address: form.address,
+      city: form.city,
+      state: form.state,
+      pincode: form.pincode,
+      about: form.about,
+      mobileNumber: form.mobileNumber,
+      capacity: Number.isFinite(capacity) ? capacity : 0,
     };
-    if (Number.isFinite(plantNumber) && plantNumber >= 1) {
-      payload.plantNumber = Math.floor(plantNumber);
-    } else if (!editing) {
-      payload.plantNumber = nextPlantNumber();
-    } else {
-      delete payload.plantNumber;
-    }
+    if (!editing) payload.isActive = true;
     return payload;
   };
 
   const openAdd = () => {
     setEditing(null);
-    setForm({ ...emptyDealer, plantNumber: nextPlantNumber() });
+    setForm(emptyDistributor);
     setModal(true);
   };
 
-  const openEdit = (d: Dealer) => {
+  const openEdit = (d: Distributor) => {
     setEditing(d);
-    const plantNumber =
-      d.plantNumber != null && d.plantNumber >= 1 ? d.plantNumber : nextPlantNumber();
     setForm({
       name: d.name,
       code: d.code,
-      plantNumber,
-      city: d.city,
-      state: d.state,
+      area: d.area ?? "",
       address: d.address,
-      phone: d.phone,
-      manager: d.manager,
-      managerPhone: d.managerPhone || "",
-      email: d.email || "",
-      about: d.about || "",
-      pincode: d.pincode || "",
-      timings: d.timings || "",
-      capacity: d.capacity ?? 0,
+      city: d.city ?? "",
+      state: d.state ?? "",
+      pincode: d.pincode ?? "",
+      capacity: d.capacity ?? "",
+      about: d.about ?? "",
+      mobileNumber: d.mobileNumber,
     });
     setModal(true);
   };
 
-  const openProducts = (d: Dealer) => {
-    setProductsDealer(d);
+  const openProducts = (d: Distributor) => {
+    setProductsDistributor(d);
     const map: Record<string, { enabled: boolean; stock: number }> = {};
     catalog.forEach((p) => {
       const existing = d.availableProducts?.find(
@@ -212,10 +187,10 @@ export default function AdminDealersPage() {
   };
 
   const saveProducts = async () => {
-    if (!productsDealer) return;
+    if (!productsDistributor) return;
     setLoading(true);
     try {
-      const availableProducts: DealerProduct[] = Object.entries(storeProducts)
+      const availableProducts: DistributorProduct[] = Object.entries(storeProducts)
         .filter(([, v]) => v.enabled)
         .map(([productId, v]) => ({
           productId,
@@ -223,13 +198,13 @@ export default function AdminDealersPage() {
           isAvailable: true,
         }));
 
-      const res = await adminFetch(`/api/admin/dealers/${productsDealer._id}`, {
+      const res = await adminFetch(`/api/admin/distributors/${productsDistributor._id}`, {
         method: "PATCH",
         body: JSON.stringify({ availableProducts }),
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error);
-      toast.success("Store products updated");
+      toast.success("Products updated");
       setProductsModal(false);
       load();
     } catch (e: unknown) {
@@ -240,16 +215,24 @@ export default function AdminDealersPage() {
   };
 
   const save = async () => {
+    if (!form.name.trim() || !form.code.trim() || !form.mobileNumber.trim()) {
+      toast.error("Name, code, and mobile number are required");
+      return;
+    }
+    if (!form.address.trim() || !form.city.trim() || !form.state.trim()) {
+      toast.error("Address, city, and state are required");
+      return;
+    }
     setLoading(true);
     try {
-      const url = editing ? `/api/admin/dealers/${editing._id}` : "/api/admin/dealers";
+      const url = editing ? `/api/admin/distributors/${editing._id}` : "/api/admin/distributors";
       const res = await adminFetch(url, {
         method: editing ? "PATCH" : "POST",
         body: JSON.stringify(buildPayload()),
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error);
-      toast.success(editing ? "Dealer updated" : "Dealer added");
+      toast.success(editing ? "Distributor updated" : "Distributor added");
       setModal(false);
       load();
     } catch (e: unknown) {
@@ -259,40 +242,37 @@ export default function AdminDealersPage() {
     }
   };
 
-  const toggle = async (d: Dealer) => {
-    await adminFetch(`/api/admin/dealers/${d._id}`, {
+  const toggle = async (d: Distributor) => {
+    await adminFetch(`/api/admin/distributors/${d._id}`, {
       method: "PATCH",
       body: JSON.stringify({ isActive: !d.isActive }),
     });
     load();
   };
 
-  const remove = async (d: Dealer) => {
-    if (!confirm(`Delete business partner "${d.name}"? This cannot be undone.`)) return;
+  const remove = async (d: Distributor) => {
+    if (!confirm(`Delete distributor "${d.name}"? This cannot be undone.`)) return;
     try {
-      const res = await adminFetch(`/api/admin/dealers/${d._id}`, { method: "DELETE" });
+      const res = await adminFetch(`/api/admin/distributors/${d._id}`, { method: "DELETE" });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error);
-      toast.success("Business partner deleted");
+      toast.success("Distributor deleted");
       load();
     } catch (e: unknown) {
       toast.error(e instanceof Error ? e.message : "Failed to delete");
     }
   };
 
-  const productCount = (d: Dealer) =>
+  const productCount = (d: Distributor) =>
     d.availableProducts?.filter((p) => p.isAvailable).length ?? 0;
 
   return (
     <>
-      <AdminHeader title="Business Partners" />
+      <AdminHeader title="Distributors" />
       <div className="flex flex-wrap gap-3 mb-6">
         <button type="button" onClick={openAdd} className="btn-primary">
-          + Add Business Partner
+          + Add Distributor
         </button>
-        <a href="/api/qr" download="flooo-qr.png" className="btn-secondary flex items-center gap-2">
-          <Download className="w-4 h-4" /> Download QR Code
-        </a>
       </div>
 
       <div className="card overflow-x-auto">
@@ -300,23 +280,32 @@ export default function AdminDealersPage() {
           <thead>
             <tr className="bg-light-blue text-left">
               <th className="p-3">Name</th>
-              <th className="p-3">Plant</th>
-              <th className="p-3">City</th>
+              <th className="p-3">Code</th>
+              <th className="p-3">Mobile</th>
+              <th className="p-3">Location</th>
+              <th className="p-3">Capacity</th>
               <th className="p-3">Products</th>
               <th className="p-3">Status</th>
               <th className="p-3">Actions</th>
             </tr>
           </thead>
           <tbody>
-            {dealers.map((d) => (
+            {distributors.map((d) => (
               <tr key={d._id} className="border-t">
                 <td className="p-3 font-medium">{d.name}</td>
+                <td className="p-3">{d.code}</td>
+                <td className="p-3">{d.mobileNumber}</td>
                 <td className="p-3">
-                  {d.plantNumber != null && d.plantNumber >= 1
-                    ? formatPlantLabel(d.plantNumber)
+                  <span className="block text-secondary">{formatDistributorFullLocation(d)}</span>
+                  {d.address && (
+                    <span className="text-xs text-muted">{d.address}</span>
+                  )}
+                </td>
+                <td className="p-3">
+                  {d.capacity != null && d.capacity > 0
+                    ? `${d.capacity.toLocaleString("en-IN")} L`
                     : "—"}
                 </td>
-                <td className="p-3">{d.city}</td>
                 <td className="p-3">
                   <span className="text-xs bg-light-blue text-secondary px-2 py-1 rounded-full">
                     {productCount(d)} available
@@ -357,13 +346,13 @@ export default function AdminDealersPage() {
         </table>
       </div>
 
-      <Modal isOpen={modal} onClose={() => setModal(false)} title={editing ? "Edit Dealer" : "Add Dealer"} size="lg">
-        <div className="grid sm:grid-cols-2 gap-4 max-h-[60vh] overflow-y-auto pr-1">
-          {dealerFields.map(({ key, label, placeholder, type }) => (
+      <Modal isOpen={modal} onClose={() => setModal(false)} title={editing ? "Edit Distributor" : "Add Distributor"} size="md">
+        <div className="grid gap-4">
+          {distributorFields.map(({ key, label, placeholder, type }) => (
             <FormField
               key={key}
               label={label}
-              id={`dealer-${key}`}
+              id={`distributor-${key}`}
               type={type}
               placeholder={placeholder}
               value={String(form[key] ?? "")}
@@ -377,10 +366,18 @@ export default function AdminDealersPage() {
                         ? ""
                         : Number(raw)
                       : raw,
-                } as DealerForm);
+                } as DistributorForm);
               }}
             />
           ))}
+          <FormField
+            as="textarea"
+            label="About"
+            id="distributor-about"
+            placeholder="Brief description of this distributor"
+            value={form.about}
+            onChange={(e) => setForm({ ...form, about: e.target.value })}
+          />
         </div>
         <button type="button" onClick={save} disabled={loading} className="btn-primary w-full mt-4">
           {loading ? "Saving..." : "Save"}
@@ -390,16 +387,16 @@ export default function AdminDealersPage() {
       <Modal
         isOpen={productsModal}
         onClose={() => setProductsModal(false)}
-        title={`Available Products — ${productsDealer?.name ?? ""}`}
+        title={`Available Products — ${productsDistributor?.name ?? ""}`}
         size="lg"
       >
         <p className="text-sm text-muted mb-4">
-          Select which products this store carries and set stock for each. Only checked products appear on the public store page.
+          Select which products this distributor carries and set stock for each. Products appear on the public distributor detail page.
         </p>
         {catalog.length === 0 ? (
           <p className="text-muted text-sm py-4">No bottle products in catalog. Add products first.</p>
         ) : (
-          <div className="space-y-3 max-h-[50vh] overflow-y-auto pr-1">
+          <div className="space-y-3">
             {catalog.map((p) => {
               const entry = storeProducts[p._id] ?? { enabled: false, stock: 100 };
               return (

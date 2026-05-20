@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import AdminHeader from "@/components/admin/AdminHeader";
 import { formatDate } from "@/lib/utils";
 import { adminFetch } from "@/lib/admin-fetch";
@@ -15,9 +16,29 @@ export default function AdminUsersPage() {
     createdAt: string;
   }>>([]);
 
+  const load = () => adminFetch("/api/admin/users").then((r) => r.json()).then(setUsers);
+
   useEffect(() => {
-    adminFetch("/api/admin/users").then((r) => r.json()).then(setUsers);
+    load();
   }, []);
+
+  const remove = async (u: { _id: string; name?: string; phone: string; orderCount?: number }) => {
+    const label = u.name || u.phone;
+    const orderNote =
+      (u.orderCount ?? 0) > 0
+        ? ` This will also delete ${u.orderCount} order(s) linked to this user.`
+        : "";
+    if (!confirm(`Delete user "${label}"?${orderNote} This cannot be undone.`)) return;
+    try {
+      const res = await adminFetch(`/api/admin/users/${u._id}`, { method: "DELETE" });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error);
+      toast.success("User deleted");
+      load();
+    } catch (e: unknown) {
+      toast.error(e instanceof Error ? e.message : "Failed to delete");
+    }
+  };
 
   return (
     <>
@@ -31,6 +52,7 @@ export default function AdminUsersPage() {
               <th className="p-3">Email</th>
               <th className="p-3">Orders</th>
               <th className="p-3">Joined</th>
+              <th className="p-3">Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -41,6 +63,15 @@ export default function AdminUsersPage() {
                 <td className="p-3">{u.email || "—"}</td>
                 <td className="p-3">{u.orderCount ?? 0}</td>
                 <td className="p-3">{formatDate(u.createdAt)}</td>
+                <td className="p-3">
+                  <button
+                    type="button"
+                    onClick={() => remove(u)}
+                    className="text-red-500 hover:underline"
+                  >
+                    Delete
+                  </button>
+                </td>
               </tr>
             ))}
           </tbody>

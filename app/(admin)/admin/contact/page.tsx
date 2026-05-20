@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import AdminHeader from "@/components/admin/AdminHeader";
 import { formatDate } from "@/lib/utils";
 import { adminFetch } from "@/lib/admin-fetch";
@@ -17,9 +18,24 @@ export default function AdminContactPage() {
     createdAt: string;
   }>>([]);
 
+  const load = () => adminFetch("/api/admin/contact").then((r) => r.json()).then(setSubmissions);
+
   useEffect(() => {
-    adminFetch("/api/admin/contact").then((r) => r.json()).then(setSubmissions);
+    load();
   }, []);
+
+  const remove = async (s: { _id: string; name: string }) => {
+    if (!confirm(`Delete contact submission from "${s.name}"? This cannot be undone.`)) return;
+    try {
+      const res = await adminFetch(`/api/admin/contact/${s._id}`, { method: "DELETE" });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error);
+      toast.success("Submission deleted");
+      load();
+    } catch (e: unknown) {
+      toast.error(e instanceof Error ? e.message : "Failed to delete");
+    }
+  };
 
   return (
     <>
@@ -35,7 +51,7 @@ export default function AdminContactPage() {
               <th className="p-3">Pincode</th>
               <th className="p-3">Message</th>
               <th className="p-3">Date</th>
-              <th className="p-3">Action</th>
+              <th className="p-3">Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -48,13 +64,20 @@ export default function AdminContactPage() {
                 <td className="p-3">{s.pincode || "—"}</td>
                 <td className="p-3 max-w-xs truncate">{s.message}</td>
                 <td className="p-3">{formatDate(s.createdAt)}</td>
-                <td className="p-3">
+                <td className="p-3 space-x-3">
                   <a
                     href={`mailto:${s.email || "lspenterpriseslko@gmail.com"}?subject=Re: Your LSP Enterprises enquiry`}
                     className="text-primary hover:underline"
                   >
                     Reply
                   </a>
+                  <button
+                    type="button"
+                    onClick={() => remove(s)}
+                    className="text-red-500 hover:underline"
+                  >
+                    Delete
+                  </button>
                 </td>
               </tr>
             ))}

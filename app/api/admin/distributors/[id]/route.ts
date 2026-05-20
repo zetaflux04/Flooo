@@ -1,9 +1,9 @@
 import { NextRequest } from "next/server";
 import { connectDB } from "@/lib/db";
-import { Dealer } from "@/models/Dealer";
+import { Distributor } from "@/models/Distributor";
 import { getAdminFromRequest } from "@/lib/auth";
 import { jsonError, jsonSuccess } from "@/lib/api-helpers";
-import { dealerValidationMessage, sanitizeDealerBody } from "@/lib/dealer-payload";
+import { distributorValidationMessage, sanitizeDistributorBody } from "@/lib/distributor-payload";
 
 export async function PATCH(
   req: NextRequest,
@@ -13,23 +13,23 @@ export async function PATCH(
 
   try {
     const body = await req.json();
-    const update = sanitizeDealerBody(body as Record<string, unknown>);
+    const update = sanitizeDistributorBody(body as Record<string, unknown>);
 
     if (Object.keys(update).length === 0) {
       return jsonError("No valid fields to update", 400);
     }
 
     await connectDB();
-    const dealer = await Dealer.findByIdAndUpdate(params.id, update, {
+    const distributor = await Distributor.findByIdAndUpdate(params.id, update, {
       new: true,
       runValidators: true,
     });
 
-    if (!dealer) return jsonError("Dealer not found", 404);
-    return jsonSuccess(dealer);
+    if (!distributor) return jsonError("Distributor not found", 404);
+    return jsonSuccess(distributor);
   } catch (e: unknown) {
-    console.error("admin dealers PATCH:", e);
-    return jsonError(dealerValidationMessage(e), 500);
+    console.error("admin distributors PATCH:", e);
+    return jsonError(distributorValidationMessage(e), 500);
   }
 }
 
@@ -41,11 +41,11 @@ export async function DELETE(
 
   try {
     await connectDB();
-    const dealer = await Dealer.findByIdAndDelete(params.id);
-    if (!dealer) return jsonError("Dealer not found", 404);
+    const distributor = await Distributor.findByIdAndDelete(params.id);
+    if (!distributor) return jsonError("Distributor not found", 404);
     return jsonSuccess({ message: "Deleted" });
   } catch (e: unknown) {
-    console.error("admin dealers DELETE:", e);
-    return jsonError("Failed to delete dealer", 500);
+    console.error("admin distributors DELETE:", e);
+    return jsonError("Failed to delete distributor", 500);
   }
 }

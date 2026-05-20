@@ -11,6 +11,7 @@ import {
   Mail,
   Settings,
   LogOut,
+  Truck,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { adminFetch } from "@/lib/admin-fetch";
@@ -20,6 +21,7 @@ const links = [
   { href: "/admin/products", label: "Products", icon: Package },
   { href: "/admin/orders", label: "Orders", icon: ShoppingBag },
   { href: "/admin/dealers", label: "Business Partners", icon: Store },
+  { href: "/admin/distributors", label: "Distributors", icon: Truck },
   { href: "/admin/users", label: "Users", icon: Users },
   { href: "/admin/contact", label: "Contact", icon: Mail },
   { href: "/admin/settings", label: "Settings", icon: Settings },
