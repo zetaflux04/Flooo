@@ -24,7 +24,7 @@ export default function ManufacturingUnits() {
   return (
     <section id="stores" className="py-20 bg-white">
       <div className="page-container">
-        <h2 className="section-title">Our Manufacturing Units</h2>
+        <h2 className="section-title">Our Business Partners</h2>
         <p className="section-subtitle mb-12">Find your nearest LSP Enterprises partner</p>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {loading
