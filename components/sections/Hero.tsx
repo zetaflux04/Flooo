@@ -26,7 +26,7 @@ export default function Hero() {
               Feel Every Sip💦
             </h1>
             <p className="text-lg text-white/85 mb-8 max-w-lg mx-auto lg:mx-0">
-              FSSAI Certified · RO+UV+UF Purified · 200ml, 250ml, 500ml &amp; 1000 ml packs delivered to your door.
+              FSSAI Certified · RO+UV+UF Purified · 200 ml, 250 ml, 500 ml &amp; 1000 ml packs delivered to your door.
             </p>
             <div className="flex flex-wrap gap-4 justify-center lg:justify-start">
               <Link href="/products" className="btn-primary">
