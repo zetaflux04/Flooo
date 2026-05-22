@@ -14,6 +14,7 @@ import {
 
 const usefulLinks = [
   { href: "/about", label: "About Company" },
+  { href: "/blog", label: "Blog" },
   { href: "/products", label: "Services" },
   { href: "/#how-it-works", label: "How It Works" },
   { href: "/#faq", label: "Our FAQ" },

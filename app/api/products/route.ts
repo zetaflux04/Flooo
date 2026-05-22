@@ -106,7 +106,7 @@ export async function GET(req: Request) {
 
     await connectDB();
     const filter: Record<string, unknown> = { isActive: true };
-    if (category === "bottle" || category === "apparel") {
+    if (category === "bottle" || category === "apparel" || category === "others") {
       filter.category = category;
     }
     const products = await Product.find(filter).sort({ category: 1, price: 1 }).lean();

@@ -8,9 +8,10 @@ cloudinary.config({
 
 export { cloudinary };
 
-export async function uploadImage(base64: string): Promise<string> {
-  const result = await cloudinary.uploader.upload(base64, {
-    folder: "flooo/products",
-  });
+export async function uploadImage(
+  base64: string,
+  folder = "flooo/products"
+): Promise<string> {
+  const result = await cloudinary.uploader.upload(base64, { folder });
   return result.secure_url;
 }

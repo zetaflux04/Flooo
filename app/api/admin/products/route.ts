@@ -5,6 +5,24 @@ import { getAdminFromRequest } from "@/lib/auth";
 import { uploadImage } from "@/lib/cloudinary";
 import { jsonError, jsonSuccess } from "@/lib/api-helpers";
 
+const VALID_CATEGORIES = ["bottle", "apparel", "others"] as const;
+
+function normalizeCategory(category: unknown): (typeof VALID_CATEGORIES)[number] {
+  if (typeof category === "string" && VALID_CATEGORIES.includes(category as (typeof VALID_CATEGORIES)[number])) {
+    return category as (typeof VALID_CATEGORIES)[number];
+  }
+  return "bottle";
+}
+
+function mongooseErrorMessage(e: unknown): string | null {
+  const err = e as { errors?: Record<string, { message?: string }> };
+  if (!err.errors) return null;
+  return Object.values(err.errors)
+    .map((x) => x.message)
+    .filter(Boolean)
+    .join(". ");
+}
+
 async function requireAdmin(req: Request) {
   const admin = await getAdminFromRequest(req);
   if (!admin) return null;
@@ -49,8 +67,8 @@ export async function POST(req: NextRequest) {
     const product = await Product.create({
       name,
       slug,
-      category: category || "bottle",
-      size,
+      category: normalizeCategory(category),
+      size: String(size).trim(),
       packQty: packQty ?? 1,
       price,
       description: description || "",
@@ -63,6 +81,9 @@ export async function POST(req: NextRequest) {
   } catch (e: unknown) {
     const err = e as { code?: number };
     if (err.code === 11000) return jsonError("Product slug already exists");
+    const validationMsg = mongooseErrorMessage(e);
+    if (validationMsg) return jsonError(validationMsg, 400);
+    console.error("admin products POST:", e);
     return jsonError("Failed to create product", 500);
   }
 }

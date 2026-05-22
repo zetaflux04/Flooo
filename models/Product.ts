@@ -1,13 +1,12 @@
 import mongoose, { Schema, Document, Model } from "mongoose";
 
-export type ProductCategory = "bottle" | "apparel";
-export type ProductSize = "100ml" | "250ml" | "500ml" | "1000 ml" | "Standard";
+export type ProductCategory = "bottle" | "apparel" | "others";
 
 export interface IProduct extends Document {
   name: string;
   slug: string;
   category: ProductCategory;
-  size: ProductSize;
+  size: string;
   packQty: number;
   price: number;
   description: string;
@@ -20,12 +19,8 @@ export interface IProduct extends Document {
 const ProductSchema = new Schema<IProduct>({
   name: { type: String, required: true },
   slug: { type: String, required: true, unique: true },
-  category: { type: String, enum: ["bottle", "apparel"], default: "bottle" },
-  size: {
-    type: String,
-    enum: ["100ml", "250ml", "500ml", "1000 ml", "Standard"],
-    required: true,
-  },
+  category: { type: String, enum: ["bottle", "apparel", "others"], default: "bottle" },
+  size: { type: String, required: true, trim: true },
   packQty: { type: Number, default: 1 },
   price: { type: Number, required: true },
   description: { type: String, default: "" },

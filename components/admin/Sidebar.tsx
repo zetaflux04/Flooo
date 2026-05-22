@@ -12,6 +12,7 @@ import {
   Settings,
   LogOut,
   Truck,
+  FileText,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { adminFetch } from "@/lib/admin-fetch";
@@ -19,6 +20,7 @@ import { adminFetch } from "@/lib/admin-fetch";
 const links = [
   { href: "/admin", label: "Dashboard", icon: LayoutDashboard },
   { href: "/admin/products", label: "Products", icon: Package },
+  { href: "/admin/blogs", label: "Blog", icon: FileText },
   { href: "/admin/orders", label: "Orders", icon: ShoppingBag },
   { href: "/admin/dealers", label: "Business Partners", icon: Store },
   { href: "/admin/distributors", label: "Distributors", icon: Truck },

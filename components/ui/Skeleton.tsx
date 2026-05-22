@@ -14,3 +14,16 @@ export function ProductCardSkeleton() {
     </div>
   );
 }
+
+export function BlogCardSkeleton() {
+  return (
+    <div className="card card-hover flex flex-col overflow-hidden">
+      <Skeleton className="h-48 w-full -mx-6 -mt-6 mb-4 rounded-none" />
+      <Skeleton className="h-3 w-24 mb-2" />
+      <Skeleton className="h-5 w-3/4 mb-2" />
+      <Skeleton className="h-4 w-full mb-1" />
+      <Skeleton className="h-4 w-5/6 mb-4" />
+      <Skeleton className="h-4 w-20 mt-auto" />
+    </div>
+  );
+}

@@ -74,6 +74,18 @@ export default function AdminProductsPage() {
   };
 
   const save = async () => {
+    if (!form.name.trim()) {
+      toast.error("Product name is required");
+      return;
+    }
+    if (!form.size.trim()) {
+      toast.error("Size is required");
+      return;
+    }
+    if (form.price === "") {
+      toast.error("Price is required");
+      return;
+    }
     setLoading(true);
     try {
       const url = editing ? `/api/admin/products/${editing._id}` : "/api/admin/products";
@@ -164,7 +176,20 @@ export default function AdminProductsPage() {
             <option value="apparel">Apparel</option>
             <option value="others">Others</option>
           </FormField>
-          <FormField label="Size" id="product-size" type="text" placeholder="e.g. 1000 ml" value={form.size} onChange={(e) => setForm({ ...form, size: e.target.value })} />
+          <FormField
+            label="Size"
+            id="product-size"
+            type="text"
+            placeholder={
+              form.category === "apparel"
+                ? "e.g. M, L, XL, One Size"
+                : form.category === "others"
+                  ? "e.g. 2 kg, 500 g, Custom"
+                  : "e.g. 250ml, 500ml, 1L"
+            }
+            value={form.size}
+            onChange={(e) => setForm({ ...form, size: e.target.value })}
+          />
           <FormField
             label="Pack Quantity"
             id="product-packQty"

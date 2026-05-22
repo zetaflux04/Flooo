@@ -67,6 +67,9 @@ export default function ProductDetailPage() {
   }
 
   const isApparel = product.category === "apparel";
+  const isOthers = product.category === "others";
+  const isBottle = !isApparel && !isOthers;
+  const categoryLabel = isApparel ? "APPAREL" : isOthers ? "OTHER" : "BOTTLE";
   const gallery =
     product.images && product.images.length > 0
       ? product.images
@@ -79,7 +82,7 @@ export default function ProductDetailPage() {
         <div className="grid lg:grid-cols-2 gap-12 mb-16">
           <div className="card p-4 relative">
             <Badge variant="green" className="absolute top-6 left-6 z-10">
-              {isApparel ? "APPAREL" : "BOTTLE"}
+              {categoryLabel}
             </Badge>
             <div className="relative h-96 bg-gradient-to-b from-light-blue to-white rounded-lg flex items-center justify-center">
               <Image
@@ -113,12 +116,16 @@ export default function ProductDetailPage() {
             <p className="text-muted mb-4">{product.description}</p>
             <p className="text-3xl font-bold text-primary mb-1">
               {formatPrice(product.price)}
-              {!isApparel && (
+              {isBottle && (
                 <span className="text-base text-muted font-normal"> / {product.packQty}-Pack</span>
               )}
             </p>
             <p className="text-sm text-muted mb-6">
-              {isApparel ? "Standard size" : `Pack of ${product.packQty} bottles`}
+              {isApparel
+                ? product.size || "Standard size"
+                : isOthers
+                  ? product.size
+                  : `Pack of ${product.packQty} bottles`}
             </p>
             <div className="flex items-center gap-4 mb-6">
               <span className="text-sm font-semibold text-secondary">Quantity:</span>
@@ -164,10 +171,10 @@ export default function ProductDetailPage() {
             <table className="w-full text-sm">
               <tbody>
                 {[
-                  ["Type", isApparel ? "Apparel" : "Mineral Water"],
+                  ["Type", isApparel ? "Apparel" : isOthers ? "Other" : "Mineral Water"],
                   ["Size", product.size],
-                  isApparel ? null : ["Pack Size", `${product.packQty} bottles`],
-                  isApparel ? null : ["Purification", "RO + UV + UF"],
+                  isBottle ? ["Pack Size", `${product.packQty} bottles`] : null,
+                  isBottle ? ["Purification", "RO + UV + UF"] : null,
                   ["Brand", "LSP Enterprises"],
                 ]
                   .filter(Boolean)
@@ -187,7 +194,9 @@ export default function ProductDetailPage() {
             <p className="text-muted">
               {isApparel
                 ? "Premium quality cotton blend. Official LSP Enterprises branded merchandise."
-                : "LSP Enterprises is FSSAI certified added mineral water manufactured under strict quality controls. All products meet IS 14543 standards."}
+                : isOthers
+                  ? "Official LSP Enterprises product. Quality assured."
+                  : "LSP Enterprises is FSSAI certified added mineral water manufactured under strict quality controls. All products meet IS 14543 standards."}
             </p>
           )}
         </div>

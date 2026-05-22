@@ -28,6 +28,8 @@ interface ProductCardProps {
 export default function ProductCard({ product }: ProductCardProps) {
   const addItem = useCartStore((s) => s.addItem);
   const isApparel = product.category === "apparel";
+  const isOthers = product.category === "others";
+  const categoryLabel = isApparel ? "Apparel" : isOthers ? "Other" : "Bottle";
 
   const handleAdd = () => {
     addItem({
@@ -46,10 +48,10 @@ export default function ProductCard({ product }: ProductCardProps) {
     <div className="card card-hover flex flex-col shadow-[0_8px_30px_rgba(1,35,122,0.08)]">
       <div className="relative bg-gradient-to-b from-light-blue to-white rounded-lg p-4 mb-4 h-52 flex items-center justify-center overflow-hidden">
         <Badge
-          variant={isApparel ? "magenta" : "green"}
+          variant={isApparel ? "magenta" : isOthers ? "default" : "green"}
           className="absolute top-3 left-3 z-10"
         >
-          {isApparel ? "Apparel" : "Bottle"}
+          {categoryLabel}
         </Badge>
         <Image
           src={product.image || "/1.png"}
@@ -67,10 +69,13 @@ export default function ProductCard({ product }: ProductCardProps) {
         {product.description ||
           (isApparel
             ? "Premium LSP Enterprises branded apparel"
-            : `Premium mineral water — ${product.size}`)}
+            : isOthers
+              ? "Premium LSP Enterprises product"
+              : `Premium mineral water — ${product.size}`)}
       </p>
       <p className="text-xs font-semibold text-secondary uppercase mb-4">
-        {isApparel ? "One Size" : `${product.size} • ${product.packQty} Pack`}
+        {product.size}
+        {product.packQty > 1 ? ` • ${product.packQty} Pack` : ""}
       </p>
       <div className="flex gap-2 mt-auto">
         <button
