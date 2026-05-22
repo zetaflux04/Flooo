@@ -84,8 +84,8 @@ const dealerFields: {
   placeholder: string;
   type?: string;
 }[] = [
-  { key: "name", label: "Dealer Name", placeholder: "e.g. Flooo Store Noida" },
-  { key: "code", label: "Dealer Code", placeholder: "e.g. DL-001" },
+  { key: "name", label: "Business Partner Name", placeholder: "e.g. Flooo Store Noida" },
+  { key: "code", label: "Business Partner Code", placeholder: "e.g. DL-001" },
   { key: "plantNumber", label: "Plant Number", placeholder: "e.g. 1 for Plant 1", type: "number" },
   { key: "city", label: "City", placeholder: "e.g. Noida" },
   { key: "state", label: "State", placeholder: "e.g. Uttar Pradesh" },
@@ -357,7 +357,7 @@ export default function AdminDealersPage() {
         </table>
       </div>
 
-      <Modal isOpen={modal} onClose={() => setModal(false)} title={editing ? "Edit Dealer" : "Add Dealer"} size="lg">
+      <Modal isOpen={modal} onClose={() => setModal(false)} title={editing ? "Edit Business Partner" : "Add Business Partner"} size="lg">
         <div className="grid sm:grid-cols-2 gap-4 max-h-[60vh] overflow-y-auto pr-1">
           {dealerFields.map(({ key, label, placeholder, type }) => (
             <FormField

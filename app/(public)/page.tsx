@@ -15,8 +15,8 @@ export default function HomePage() {
     <>
       <Hero />
       <StatsBar />
-      <ProductsSection />
       <BlogSection />
+      <ProductsSection />
       <WhyFlooo />
       <HowItWorks />
       <ManufacturingUnits />
