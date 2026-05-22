@@ -16,12 +16,12 @@ export default function HomePage() {
       <Hero />
       <StatsBar />
       <ProductsSection />
+      <BlogSection />
       <WhyFlooo />
       <HowItWorks />
       <ManufacturingUnits />
       <FaqSection />
       <TestimonialsSection />
-      <BlogSection />
       <PremiumDeliveryCta />
       <ContactForm />
     </>
