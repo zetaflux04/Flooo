@@ -48,7 +48,7 @@ export default function BrandLogo({
         />
       </span>
       {showText && (
-        <span className={cn("font-bold text-primary", textClassName)}>
+        <span className={cn("font-bold text-primary truncate", textClassName)}>
           LSP Enterprises
         </span>
       )}
@@ -56,11 +56,11 @@ export default function BrandLogo({
   );
 
   if (!asLink) {
-    return <div className={cn("flex items-center gap-2 shrink-0", className)}>{content}</div>;
+    return <div className={cn("flex items-center gap-2 min-w-0", className)}>{content}</div>;
   }
 
   return (
-    <Link href={href} className={cn("flex items-center gap-2 shrink-0", className)}>
+    <Link href={href} className={cn("flex items-center gap-2 min-w-0", className)}>
       {content}
     </Link>
   );
