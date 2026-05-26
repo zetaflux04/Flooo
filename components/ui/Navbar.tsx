@@ -65,12 +65,13 @@ export default function Navbar() {
 
   return (
     <>
-      <header className="sticky top-0 z-50 bg-white shadow-sm overflow-x-hidden">
-        <nav className="page-container h-16 flex items-center justify-between gap-2 min-w-0">
+      <header className="sticky top-0 z-50 w-full max-w-[100vw] bg-white shadow-sm overflow-x-hidden">
+        <nav className="page-container h-14 sm:h-16 flex items-center justify-between gap-1 sm:gap-2 min-w-0 w-full max-w-full">
           <BrandLogo
-            size="md"
-            className="min-w-0 flex-1 sm:flex-initial max-w-[calc(100%-7.5rem)] sm:max-w-none"
-            textClassName="hidden sm:inline text-sm md:text-lg lg:text-2xl"
+            size="sm"
+            className="min-w-0 flex-1 basis-0 overflow-hidden sm:flex-initial sm:basis-auto sm:flex-none"
+            imageClassName="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8"
+            textClassName="text-sm sm:text-base md:text-lg lg:text-2xl leading-tight"
           />
 
           <ul className="hidden lg:flex items-center gap-6 shrink-0">
@@ -89,8 +90,8 @@ export default function Navbar() {
             ))}
           </ul>
 
-          <div className="flex items-center gap-1 sm:gap-2 shrink-0">
-            <Link href="/cart" className="relative p-1.5 sm:p-2 text-secondary hover:text-primary">
+          <div className="flex items-center gap-0.5 sm:gap-2 shrink-0">
+            <Link href="/cart" className="relative p-1 sm:p-2 text-secondary hover:text-primary">
               <ShoppingCart className="w-5 h-5 sm:w-6 sm:h-6" />
               {showCartBadge && (
                 <span className="absolute -top-0.5 -right-0.5 bg-primary text-white text-xs w-5 h-5 rounded-full flex items-center justify-center font-bold">
@@ -101,13 +102,13 @@ export default function Navbar() {
             {authed ? (
               <ProfileMenu />
             ) : (
-              <Link href="/login" className="p-1.5 sm:p-2 text-secondary hover:text-primary" title="Login">
+              <Link href="/login" className="p-1 sm:p-2 text-secondary hover:text-primary" title="Login">
                 <User className="w-5 h-5 sm:w-6 sm:h-6" />
               </Link>
             )}
             <button
               type="button"
-              className="lg:hidden p-1.5 sm:p-2"
+              className="lg:hidden p-1 sm:p-2"
               onClick={() => setOpen(true)}
               aria-label="Open menu"
             >

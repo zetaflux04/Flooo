@@ -12,7 +12,13 @@ type BrandLogoProps = {
   asLink?: boolean;
 };
 
-const imageHeights = {
+const imageSizeClasses = {
+  sm: "w-7 h-7",
+  md: "w-8 h-8",
+  lg: "w-10 h-10",
+} as const;
+
+const imagePixelSizes = {
   sm: 28,
   md: 32,
   lg: 40,
@@ -27,28 +33,28 @@ export default function BrandLogo({
   size = "md",
   asLink = true,
 }: BrandLogoProps) {
-  const height = imageHeights[size];
+  const pixelSize = imagePixelSizes[size];
 
   const content = (
     <>
       <span
         className={cn(
           "relative shrink-0 overflow-hidden rounded-full bg-white",
+          imageSizeClasses[size],
           imageClassName
         )}
-        style={{ width: height, height }}
       >
         <Image
           src="/lsp_logo.jpeg"
           alt="LSP Enterprises"
           fill
           className="object-cover"
-          sizes={`${height}px`}
+          sizes={`${pixelSize}px`}
           priority
         />
       </span>
       {showText && (
-        <span className={cn("font-bold text-primary truncate", textClassName)}>
+        <span className={cn("min-w-0 font-bold text-primary truncate", textClassName)}>
           LSP Enterprises
         </span>
       )}
@@ -56,11 +62,11 @@ export default function BrandLogo({
   );
 
   if (!asLink) {
-    return <div className={cn("flex items-center gap-2 min-w-0", className)}>{content}</div>;
+    return <div className={cn("flex items-center gap-1.5 sm:gap-2 min-w-0", className)}>{content}</div>;
   }
 
   return (
-    <Link href={href} className={cn("flex items-center gap-2 min-w-0", className)}>
+    <Link href={href} className={cn("flex items-center gap-1.5 sm:gap-2 min-w-0", className)}>
       {content}
     </Link>
   );
