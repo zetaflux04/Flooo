@@ -8,7 +8,7 @@ export default function Hero() {
   return (
     <WaterBackground
       variant="hero"
-      className="text-white min-h-[88vh] flex flex-col justify-center"
+      className="text-white flex flex-col justify-center"
     >
       <PageContainer className="py-10">
         <div className="grid lg:grid-cols-2 gap-12 items-center max-w-6xl mx-auto">
@@ -37,16 +37,20 @@ export default function Hero() {
               </Link>
             </div>
           </div>
-          <div className="relative flex justify-center items-center">
-            <div className="relative w-full max-w-lg aspect-square animate-float">
+          <div className="relative flex flex-col items-center w-full max-w-lg mx-auto">
+            <div className="relative w-full animate-float">
               <Image
                 src="/bottle_group.png"
                 alt="LSP Enterprises water bottles"
-                fill
-                className="object-contain drop-shadow-2xl"
+                width={1536}
+                height={1024}
+                className="w-full h-auto object-contain drop-shadow-2xl"
                 priority
               />
             </div>
+            <p className="mt-1 text-white font-bold text-2xl sm:text-3xl lg:text-4xl text-center">
+              MSME Registered
+            </p>
           </div>
         </div>
       </PageContainer>
