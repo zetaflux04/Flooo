@@ -5,7 +5,6 @@ import Link from "next/link";
 import { useParams } from "next/navigation";
 import {
   MapPin,
-  Clock,
   Info,
   ShoppingBag,
   ArrowLeft,
@@ -126,36 +125,11 @@ export default function StoreDetailPage() {
                   <span className="font-bold text-primary text-lg">{dealer.factoryLicenseNo}</span>
                 </p>
               )}
-              {dealer.email && (
-                <p>
-                  <span className="text-muted text-sm">Email</span>
-                  <br />
-                  <a href={`mailto:${dealer.email}`} className="text-primary font-medium">
-                    {dealer.email}
-                  </a>
-                </p>
-              )}
-              <p>
-                <span className="text-muted text-sm">Manager</span>
-                <br />
-                <span className="font-medium text-secondary">
-                  {dealer.manager}
-                  {dealer.managerPhone && (
-                    <span className="text-muted"> · {dealer.managerPhone}</span>
-                  )}
-                </span>
-              </p>
             </div>
           </InfoCard>
 
-          <InfoCard icon={<Clock className="w-5 h-5 text-orange-500" />} title="Operations">
+          <InfoCard icon={<Info className="w-5 h-5 text-orange-500" />} title="Operations">
             <div className="space-y-3">
-              {dealer.timings && (
-                <div>
-                  <p className="text-muted text-xs uppercase tracking-wide mb-0.5">Hours</p>
-                  <p className="font-bold text-primary text-xl">{dealer.timings}</p>
-                </div>
-              )}
               {dealer.capacity != null && dealer.capacity > 0 && (
                 <div>
                   <p className="text-muted text-xs uppercase tracking-wide mb-0.5">

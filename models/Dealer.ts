@@ -15,12 +15,8 @@ export interface IDealer extends Document {
   address: string;
   fssaiLicenseNo?: string;
   factoryLicenseNo?: string;
-  manager: string;
-  managerPhone?: string;
-  email?: string;
   about?: string;
   pincode?: string;
-  timings?: string;
   capacity?: number;
   availableProducts?: IDealerProduct[];
   isActive: boolean;
@@ -46,12 +42,8 @@ const DealerSchema = new Schema<IDealer>(
     address: { type: String, required: true },
     fssaiLicenseNo: String,
     factoryLicenseNo: String,
-    manager: { type: String, required: true },
-    managerPhone: String,
-    email: String,
     about: String,
     pincode: String,
-    timings: String,
     capacity: Number,
     availableProducts: { type: [DealerProductSchema], default: [] },
     isActive: { type: Boolean, default: true },

@@ -25,12 +25,8 @@ interface Dealer {
   address: string;
   fssaiLicenseNo?: string;
   factoryLicenseNo?: string;
-  manager: string;
-  managerPhone?: string;
-  email?: string;
   about?: string;
   pincode?: string;
-  timings?: string;
   capacity?: number;
   availableProducts?: DealerProduct[];
   isActive: boolean;
@@ -54,12 +50,8 @@ type DealerForm = {
   address: string;
   fssaiLicenseNo: string;
   factoryLicenseNo: string;
-  manager: string;
-  managerPhone: string;
-  email: string;
   about: string;
   pincode: string;
-  timings: string;
   capacity: number;
 };
 
@@ -72,12 +64,8 @@ const emptyDealer: DealerForm = {
   address: "",
   fssaiLicenseNo: "",
   factoryLicenseNo: "",
-  manager: "",
-  managerPhone: "",
-  email: "",
   about: "",
   pincode: "",
-  timings: "9 AM - 6 PM",
   capacity: 1000,
 };
 
@@ -95,12 +83,8 @@ const dealerFields: {
   { key: "address", label: "Address", placeholder: "Full street address" },
   { key: "fssaiLicenseNo", label: "FSSAI License No", placeholder: "e.g. 12345678901234" },
   { key: "factoryLicenseNo", label: "Factory License No", placeholder: "e.g. FL-2024-001" },
-  { key: "manager", label: "Manager Name", placeholder: "Contact person name" },
-  { key: "managerPhone", label: "Manager Phone", placeholder: "e.g. 9876543210" },
-  { key: "email", label: "Email", placeholder: "store@example.com" },
   { key: "pincode", label: "Pincode", placeholder: "e.g. 201310" },
   { key: "about", label: "About", placeholder: "Brief store description" },
-  { key: "timings", label: "Timings", placeholder: "e.g. 9 AM - 6 PM" },
   { key: "capacity", label: "Capacity (ML)", placeholder: "e.g. 1000", type: "number" },
 ];
 
@@ -169,12 +153,8 @@ export default function AdminDealersPage() {
       address: d.address,
       fssaiLicenseNo: d.fssaiLicenseNo || "",
       factoryLicenseNo: d.factoryLicenseNo || "",
-      manager: d.manager,
-      managerPhone: d.managerPhone || "",
-      email: d.email || "",
       about: d.about || "",
       pincode: d.pincode || "",
-      timings: d.timings || "",
       capacity: d.capacity ?? 0,
     });
     setModal(true);

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { MapPin, User, Clock, FileText, Factory } from "lucide-react";
+import { MapPin, FileText, Factory } from "lucide-react";
 import { formatPlantLabel } from "@/lib/utils";
 
 export interface DealerData {
@@ -12,12 +12,8 @@ export interface DealerData {
   address: string;
   fssaiLicenseNo?: string;
   factoryLicenseNo?: string;
-  manager: string;
-  managerPhone?: string;
-  email?: string;
   about?: string;
   pincode?: string;
-  timings?: string;
   capacity?: number;
 }
 
@@ -69,16 +65,6 @@ export default function DealerCard({ dealer }: { dealer: DealerData }) {
           <p className="flex items-center gap-2">
             <Factory className="w-4 h-4 text-blue-500 shrink-0" />
             <span>Factory License No: {dealer.factoryLicenseNo}</span>
-          </p>
-        )}
-        <p className="flex items-center gap-2">
-          <User className="w-4 h-4 text-purple-500 shrink-0" />
-          <span>Manager: {dealer.manager}</span>
-        </p>
-        {dealer.timings && (
-          <p className="flex items-center gap-2">
-            <Clock className="w-4 h-4 text-gray-400 shrink-0" />
-            <span>{dealer.timings}</span>
           </p>
         )}
         {capacity > 0 && (
