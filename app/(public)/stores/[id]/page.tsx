@@ -5,11 +5,12 @@ import Link from "next/link";
 import { useParams } from "next/navigation";
 import {
   MapPin,
-  Phone,
   Clock,
   Info,
   ShoppingBag,
   ArrowLeft,
+  FileText,
+  Factory,
 } from "lucide-react";
 import { DealerData } from "@/components/ui/DealerCard";
 import { formatPlantLabel, formatPrice } from "@/lib/utils";
@@ -21,12 +22,6 @@ interface ProductRow {
   price: number;
   stock: number;
   category?: string;
-}
-
-function formatPhone(phone: string) {
-  const digits = phone.replace(/\D/g, "");
-  if (digits.length === 10) return `+91-${digits.slice(0, 5)}${digits.slice(5)}`;
-  return phone;
 }
 
 export default function StoreDetailPage() {
@@ -77,7 +72,6 @@ export default function StoreDetailPage() {
     );
   }
 
-  const phoneDigits = dealer.phone.replace(/\D/g, "").slice(-10);
   const locationLine = [dealer.city, dealer.state, dealer.pincode]
     .filter(Boolean)
     .join(", ");
@@ -116,15 +110,22 @@ export default function StoreDetailPage() {
             {locationLine && <p className="text-muted mt-1">{locationLine}</p>}
           </InfoCard>
 
-          <InfoCard icon={<Phone className="w-5 h-5 text-pink-500" />} title="Contact">
+          <InfoCard icon={<FileText className="w-5 h-5 text-emerald-500" />} title="Licenses & Contact">
             <div className="space-y-2">
-              <p>
-                <span className="text-muted text-sm">Store Phone</span>
-                <br />
-                <a href={`tel:${phoneDigits}`} className="font-bold text-primary text-lg">
-                  {formatPhone(dealer.phone)}
-                </a>
-              </p>
+              {dealer.fssaiLicenseNo && (
+                <p>
+                  <span className="text-muted text-sm">FSSAI License No</span>
+                  <br />
+                  <span className="font-bold text-primary text-lg">{dealer.fssaiLicenseNo}</span>
+                </p>
+              )}
+              {dealer.factoryLicenseNo && (
+                <p>
+                  <span className="text-muted text-sm">Factory License No</span>
+                  <br />
+                  <span className="font-bold text-primary text-lg">{dealer.factoryLicenseNo}</span>
+                </p>
+              )}
               {dealer.email && (
                 <p>
                   <span className="text-muted text-sm">Email</span>
@@ -140,7 +141,7 @@ export default function StoreDetailPage() {
                 <span className="font-medium text-secondary">
                   {dealer.manager}
                   {dealer.managerPhone && (
-                    <span className="text-muted"> · {formatPhone(dealer.managerPhone)}</span>
+                    <span className="text-muted"> · {dealer.managerPhone}</span>
                   )}
                 </span>
               </p>

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Phone, MapPin, User, Clock } from "lucide-react";
+import { MapPin, User, Clock, FileText, Factory } from "lucide-react";
 import { formatPlantLabel } from "@/lib/utils";
 
 export interface DealerData {
@@ -10,7 +10,8 @@ export interface DealerData {
   city: string;
   state: string;
   address: string;
-  phone: string;
+  fssaiLicenseNo?: string;
+  factoryLicenseNo?: string;
   manager: string;
   managerPhone?: string;
   email?: string;
@@ -22,14 +23,7 @@ export interface DealerData {
 
 const CAPACITY_MAX = 15000;
 
-function formatPhone(phone: string) {
-  const digits = phone.replace(/\D/g, "");
-  if (digits.length === 10) return `+91-${digits.slice(0, 5)}${digits.slice(5)}`;
-  return phone;
-}
-
 export default function DealerCard({ dealer }: { dealer: DealerData }) {
-  const phoneDigits = dealer.phone.replace(/\D/g, "").slice(-10);
   const capacity = dealer.capacity ?? 0;
   const capacityPct = Math.min(100, Math.round((capacity / CAPACITY_MAX) * 100));
   const plantLabel =
@@ -65,10 +59,18 @@ export default function DealerCard({ dealer }: { dealer: DealerData }) {
           <MapPin className="w-4 h-4 mt-0.5 text-red-500 shrink-0" />
           <span>{dealer.address}</span>
         </p>
-        <p className="flex items-center gap-2">
-          <Phone className="w-4 h-4 text-pink-500 shrink-0" />
-          <span>{formatPhone(dealer.phone)}</span>
-        </p>
+        {dealer.fssaiLicenseNo && (
+          <p className="flex items-center gap-2">
+            <FileText className="w-4 h-4 text-emerald-500 shrink-0" />
+            <span>FSSAI License No: {dealer.fssaiLicenseNo}</span>
+          </p>
+        )}
+        {dealer.factoryLicenseNo && (
+          <p className="flex items-center gap-2">
+            <Factory className="w-4 h-4 text-blue-500 shrink-0" />
+            <span>Factory License No: {dealer.factoryLicenseNo}</span>
+          </p>
+        )}
         <p className="flex items-center gap-2">
           <User className="w-4 h-4 text-purple-500 shrink-0" />
           <span>Manager: {dealer.manager}</span>
@@ -97,20 +99,13 @@ export default function DealerCard({ dealer }: { dealer: DealerData }) {
         )}
       </div>
 
-      <div className="px-5 pb-5 flex gap-2">
+      <div className="px-5 pb-5">
         <Link
           href={`/stores/${dealer._id}`}
-          className="flex-1 text-center py-2.5 rounded-btn bg-light-blue text-secondary font-semibold text-sm hover:bg-primary/20 transition-colors"
+          className="block text-center py-2.5 rounded-btn bg-light-blue text-secondary font-semibold text-sm hover:bg-primary/20 transition-colors"
         >
           View Details
         </Link>
-        <a
-          href={`tel:${phoneDigits}`}
-          className="flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-btn bg-green-50 text-green-700 font-semibold text-sm hover:bg-green-100 transition-colors"
-        >
-          <Phone className="w-4 h-4" />
-          Call
-        </a>
       </div>
     </div>
   );

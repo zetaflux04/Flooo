@@ -23,7 +23,8 @@ interface Dealer {
   city: string;
   state: string;
   address: string;
-  phone: string;
+  fssaiLicenseNo?: string;
+  factoryLicenseNo?: string;
   manager: string;
   managerPhone?: string;
   email?: string;
@@ -51,7 +52,8 @@ type DealerForm = {
   city: string;
   state: string;
   address: string;
-  phone: string;
+  fssaiLicenseNo: string;
+  factoryLicenseNo: string;
   manager: string;
   managerPhone: string;
   email: string;
@@ -68,7 +70,8 @@ const emptyDealer: DealerForm = {
   city: "",
   state: "",
   address: "",
-  phone: "",
+  fssaiLicenseNo: "",
+  factoryLicenseNo: "",
   manager: "",
   managerPhone: "",
   email: "",
@@ -90,7 +93,8 @@ const dealerFields: {
   { key: "city", label: "City", placeholder: "e.g. Noida" },
   { key: "state", label: "State", placeholder: "e.g. Uttar Pradesh" },
   { key: "address", label: "Address", placeholder: "Full street address" },
-  { key: "phone", label: "Phone", placeholder: "e.g. 9876543210" },
+  { key: "fssaiLicenseNo", label: "FSSAI License No", placeholder: "e.g. 12345678901234" },
+  { key: "factoryLicenseNo", label: "Factory License No", placeholder: "e.g. FL-2024-001" },
   { key: "manager", label: "Manager Name", placeholder: "Contact person name" },
   { key: "managerPhone", label: "Manager Phone", placeholder: "e.g. 9876543210" },
   { key: "email", label: "Email", placeholder: "store@example.com" },
@@ -163,7 +167,8 @@ export default function AdminDealersPage() {
       city: d.city,
       state: d.state,
       address: d.address,
-      phone: d.phone,
+      fssaiLicenseNo: d.fssaiLicenseNo || "",
+      factoryLicenseNo: d.factoryLicenseNo || "",
       manager: d.manager,
       managerPhone: d.managerPhone || "",
       email: d.email || "",

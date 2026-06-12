@@ -13,7 +13,8 @@ export interface IDealer extends Document {
   city: string;
   state: string;
   address: string;
-  phone: string;
+  fssaiLicenseNo?: string;
+  factoryLicenseNo?: string;
   manager: string;
   managerPhone?: string;
   email?: string;
@@ -43,7 +44,8 @@ const DealerSchema = new Schema<IDealer>(
     city: { type: String, required: true },
     state: { type: String, required: true },
     address: { type: String, required: true },
-    phone: { type: String, required: true },
+    fssaiLicenseNo: String,
+    factoryLicenseNo: String,
     manager: { type: String, required: true },
     managerPhone: String,
     email: String,
